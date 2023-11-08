@@ -1,0 +1,29 @@
+
+[30-Oct-2023 17:18:12 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
+[30-Oct-2023 17:18:26 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
+[30-Oct-2023 17:19:27 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
+[30-Oct-2023 17:19:28 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
+[30-Oct-2023 17:19:28 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
+[30-Oct-2023 17:19:28 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
+[30-Oct-2023 17:19:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/beshabhusa/public_html/admin/addCategories.php:292
+Stack trace:
+#0 {main}
+  thrown in /home1/beshabhusa/public_html/admin/addCategories.php on line 292
