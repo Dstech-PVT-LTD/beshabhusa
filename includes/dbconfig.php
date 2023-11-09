@@ -1,9 +1,14 @@
 <?php
 $servername = "localhost";
+<<<<<<< HEAD
 // $username = "beshabhusa_admin";
 // $password = "8@EFN^~^boO1";
 $username = "root";
 $password ="";
+=======
+$username = "root";
+$password = "";
+>>>>>>> 85c323b6ef6f54e659a349d52b5367fa90814820
 $dbname = "beshabhusa_db";
 // $username = "dstechsi_purifier_admin";
 // $password = "}eh5k0N9%omJ";

@@ -422,6 +422,28 @@
        <script src="assets/js/custom.js"></script>
     
        <script>
+        
+    function updateProductQuantity(productId, newQuantity) {
+        $.ajax({
+            url:'update_cart.php',
+            method: 'POST',
+            data: {
+                productId: productId,
+                quantity: newQuantity
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.status === 'success') {
+                    // alert(data.message);
+                } else {
+                    // alert(data.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred during the AJAX request.');
+            }
+        });
+    }
 
 function minusQuantity(id){
     var quantity = parseInt($('#quantity_' + id).val());
@@ -429,6 +451,7 @@ function minusQuantity(id){
     quantity = quantity-1;
     $('#quantity_' + id).val(quantity);
     $('#product_total_amt_'+ id).text(quantity * price);
+    updateProductQuantity(id,quantity);
     updateTotal();
 }
 function plusQuantity(id){
@@ -437,6 +460,7 @@ function plusQuantity(id){
     quantity = quantity+1;
     $('#quantity_' + id).val(quantity);
     $('#product_total_amt_'+ id).text(quantity * price);
+    updateProductQuantity(id,quantity);
     updateTotal();
 }
 
