@@ -171,7 +171,7 @@ $fetchProductStmt->execute([$id]);
 
                         <!-- product details btns -->
                         <div class="product-details-btns">
-                            <div class="addto-bag-btn" id="addtocarts" onclick="addToCarts()">
+                            <div class="addto-bag-btn" id="addtocart" <?php echo isset($_SESSION['users']) ? 'onclick="addToCart()"':'' ?>>
                                 <a type="button" class="btn btn-fill-type" data-toggle="modal" data-target="#myModal">
                                     <span><img src="assets/img/icons/add-bag.svg" alt="" class="svg"></span><span class="d-none d-lg-block mr-0">Add To Cart</span>
                                 </a>
@@ -412,7 +412,7 @@ $fetchProductStmt->execute([$id]);
             $fetchCategoryReleted->execute([$cid]);
             $sl = 1;
             while ($row = $fetchCategoryReleted->fetch()) {
-
+             $dll = base64_encode($row["id"]);
                 
             ?>
                 <div class="col-sm-6 col-12 col-lg-3">
@@ -423,7 +423,7 @@ $fetchProductStmt->execute([$id]);
                             <div class="product-thumb">
                                 <!-- Product Image -->
                                 <div class="product-image">
-                                    <a href="#">
+                                    <a href="shop-details.php?id=<?php echo $dll ?>">
                                         <img class='normal-state' data-rjs="2" src="<?php echo $row['image']; ?>" alt="service image <?php echo $sl; ?>">
                                         <img class='hover-state' data-rjs="2" src="assets/img/product/product-1b.jpg" alt="">
                                     </a>
@@ -434,7 +434,7 @@ $fetchProductStmt->execute([$id]);
                                 <div class="product-buttons">
                                     <div class="quick-btn">
                                         <div class="quick-icon-btn">
-                                            <a href="#" class="quick_view">
+                                            <a href="shop-details.php?id=<?php echo $dll ?>" class="quick_view">
                                                 <span class="product-icon"><i class="fa fa-eye" aria-hidden="true"></i></span>
                                                 <span class="icon-title">Quick View</span>
                                             </a>
@@ -524,7 +524,7 @@ $fetchProductStmt->execute([$id]);
                     <div class="login-register-content tab-content">
                        
                             <div class="primary-form parsley-validate">
-                                <form method="post">
+                            <form method="post" id="loginform">
                                     <!-- loging input -->
                                     <div class="email-input input-field">
                                         <label>
@@ -542,7 +542,7 @@ $fetchProductStmt->execute([$id]);
                                     <!-- loging input -->
                                     <button type="login" class="btn btn-fill-type" name="login">log In</button>
                                 </form>
-                                <p>Don’t have an account,<a href="#">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
+                                <p>Don’t have an account,<a href="login,php">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
                             </div>
                         
 
@@ -564,35 +564,68 @@ $fetchProductStmt->execute([$id]);
 
 <?php include "includes/footer.php"; ?>
 <script>
-    
-    function addToCarts() {
-        var size = $('input[name="equll_size"]:checked').val();
-        var productId = $('#pid').val();
-        var quantity = $('#quantity1').val();
-
-        if (parseInt(quantity) > 0) {
-            var formData = {
-                size: size,
-                productId: productId,
-                quantity: quantity,
-                type: "addtocart"
-            };
+    $(document).ready(function () {
+        $('#loginform').submit(function (event) {
+            event.preventDefault();
+            var email = $('input[name="email"]').val();
+            var password = $('input[name="password"]').val();
 
             $.ajax({
                 type: "POST",
-                url: "addtoCartApi.php",
-                data: formData,
+                url: "loginApi.php",
+                data: {
+                    email: email,
+                    password: password
+                },
                 dataType: 'JSON',
                 success: function (response) {
-                    $("#responseMessage").text(response);
+                    if (response.success) {
+                        var userId = response.userId;
+                        addToCart(userId);
+                        window.location.href=response.redirect;qx
+                    } else {
+                        alert('Login failed. Please check your credentials.');
+                    }
                 },
                 error: function (error) {
                     console.log(error);
-                    $("#responseMessage").text("An error occurred.");
+                    alert('An error occurred while logging in.');
                 }
             });
-        } else {
-            $("#responseMessage").text("Quantity must be 1 to add to cart.");
+        });
+
+        function addToCart(userId) {
+            var size = $('input[name="equll_size"]:checked').val();
+            var productId = $('#pid').val();
+            var quantity = $('#quantity1').val();
+
+            if (parseInt(quantity) > 0) {
+                var formData = {
+                    size: size,
+                    productId: productId,
+                    quantity: quantity,
+                    userId: userId,
+                    type: "addtocart"
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "addtoCartApi.php",
+                    data: formData,
+                    dataType: 'JSON',
+                    success: function (response) {
+                        $("#responseMessage").text(response.message);
+                       
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $("#responseMessage").text("An error occurred.");
+                    }
+                });
+            } else {
+                $("#responseMessage").text("Quantity must be 1 or more to add to cart.");
+            }
         }
-    }
+    });
 </script>
+
