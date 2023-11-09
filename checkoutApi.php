@@ -72,7 +72,8 @@ $paymentSystem = isset($_POST['payment_system']) ? $_POST['payment_system'] : ''
       $array = [$userId,$cart['product_id'],$orderId, $_POST['first_name'], $_POST['last_name'], $_POST['phone'], $_POST['email'], $_POST['country'], $_POST['city'], $_POST['street_address'], $_POST['street_addressop'], $_POST['dist'], $_POST['pin_code'],  $cart['quantity'], $product['price'],$paymentSystem];
       $insert = $conn->prepare($sql);
       $result1 = $insert->execute($array);
-   
+   $delete = $conn->prepare('DELETE FROM `add_to_cart` WHERE `id`=?');
+   $result2 = $delete->execute([$cart['id']]);
       
     }
   }else{
