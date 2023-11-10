@@ -7,25 +7,26 @@ if (isset($_POST['submit'])) {
 
     // login in php
     if (empty($email) || empty($password) || empty($cpassword)) {
-        echo "<p class='alert alert-danger'>Please Fill The Form.</p>";
+        $status = "<p class='alert alert-danger'>Please Fill The Form.</p>";
     } else {
         if ($password != $cpassword) {
-            echo "<p class='alert alert-danger'>New password and confirm password do not match</p>";
-            exit;
+            $status ="<p class='alert alert-danger'>New password and confirm password do not match</p>";
+           
+        }else{  
+            $hashed = password_hash($password, PASSWORD_BCRYPT);
+    
+           
+            $sql = $conn->prepare("UPDATE `users` SET `password` = :hashed WHERE `email` = :email");
+            $sql->bindParam(':hashed', $hashed, PDO::PARAM_STR);
+            $sql->bindParam(':email', $email, PDO::PARAM_STR);
+            
+            if ($sql->execute()) {
+                $status = "<p class='alert alert-success'>Password reset successful!</p>";
+            } else {
+                $status ="<p class='alert alert-danger'>Unsuccessful Password reset!</p>";
+            }
         }
-
-        $hashed = password_hash($password, PASSWORD_BCRYPT);
-
-       
-        $sql = $conn->prepare("UPDATE `users` SET `password` = :hashed WHERE `email` = :email");
-        $sql->bindParam(':hashed', $hashed, PDO::PARAM_STR);
-        $sql->bindParam(':email', $email, PDO::PARAM_STR);
-        
-        if ($sql->execute()) {
-            echo "<p class='alert alert-success'>Password reset successful!</p>";
-        } else {
-            echo "<p class='alert alert-danger'>Unsuccessful Password reset!</p>";
-        }
+      
     }
 }
 ?>
@@ -48,6 +49,7 @@ if (isset($_POST['submit'])) {
                     <div class="login-register-content tab-content">
                         <div class="tab-pane fade show active" id="login2" role="tabpanel" aria-labelledby="nav-login-tab2">
                             <div class="primary-form parsley-validate">
+                                <?php echo isset($status) ? $status :""; ?>
                                 <form method="post">
                                     <!-- login input -->
                                     <div class="email-input input-field">
