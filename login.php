@@ -134,7 +134,7 @@ if (isset($_POST['login'])) {
 <!-- End of page title -->
 
 <!-- logout register wrap -->
-<section class="pt-100 pb-100">
+<section class="pt-10 pb-10">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">

@@ -176,8 +176,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href='shop-details.html'>
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-1.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-1b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/255X350-1.png" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/255X350-1.png" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -253,8 +253,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-2.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-2b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/91RLvWu78RL._AC_SX679_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/91RLvWu78RL._AC_SX679_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -337,8 +337,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-3.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-3b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/51rtWRZxS+L._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/51rtWRZxS+L._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -412,8 +412,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-4.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-4b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/255X350-4.png" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/255X350-4.png" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -487,8 +487,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-5.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-5b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71yZInzGnvL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71yZInzGnvL._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -569,8 +569,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-6.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-6b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71tK9gbqeSL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71tK9gbqeSL._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -652,8 +652,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-7.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-7b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81VLIfyHuWL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81VLIfyHuWL._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -727,8 +727,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-8.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-8b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71JUXI1d-BL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/61b1LBxAY-L._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -802,8 +802,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href='shop-details.html'>
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-1.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-1b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81E7RKhTSWL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81E7RKhTSWL._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -879,8 +879,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-2.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-2b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71KbaJQL+6L._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/71KbaJQL+6L._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -963,8 +963,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-3.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-3b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81YHtXN3HCL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81YHtXN3HCL._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -1038,8 +1038,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href="shop-details.html">
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-4.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-4b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/619rm46q37L._AC_SR278,278_QL70_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/619rm46q37L._AC_SR278,278_QL70_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->
@@ -1113,8 +1113,8 @@ $fetchServiceStmt->execute();
                                                         <!-- Product Image -->
                                                         <div class="product-image">
                                                             <a href='shop-details.html'>
-                                                                <img class='normal-state' data-rjs="2" src="assets/img/product/product-1.jpg" alt="">
-                                                                <img class='hover-state' data-rjs="2" src="assets/img/product/product-1b.jpg" alt="">
+                                                                <img class='normal-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81PaKtmarlL._AC_UL640_FMwebp_QL65_.jpg" alt="">
+                                                                <img class='hover-state' data-rjs="2" src="https://m.media-amazon.com/images/I/81PaKtmarlL._AC_UL640_FMwebp_QL65_.jpg" alt="">
                                                                 </a>
                                                         </div>
                                                         <!-- End of Product Image -->

@@ -1590,7 +1590,7 @@ label input[type=radio] {
 }
 
 .page-title-inner {
-    padding: 176px 0 80px;
+    padding: 176px 0 40px;
 }
 .main-header.inner-page-header {
     background: #fff;
@@ -4314,7 +4314,7 @@ label input[type=radio] {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: #fefefe;
+    /* background: #fefefe; */
     z-index: 1;
     opacity: .60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
