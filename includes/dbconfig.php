@@ -1,7 +1,10 @@
+
 <?php
 $servername = "localhost";
+// $username = "beshabhusa_admin";
+// $password = "8@EFN^~^boO1";
 $username = "root";
-$password = "";
+$password ="";
 $dbname = "beshabhusa_db";
 // $username = "dstechsi_purifier_admin";
 // $password = "}eh5k0N9%omJ";
@@ -51,3 +54,4 @@ function sendEmail ($from, $to, $subject, $mailContent) {
 
 
 ?>
+
