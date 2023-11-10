@@ -1,6 +1,6 @@
 <?php include "includes/header.php"; ?>
 
-
+<?php ?>
 
 <!-- offcanvas menu-->
 
@@ -518,21 +518,36 @@
                                             </div>
                                             <table class="review-order-table">
                                                 <tbody>
-                                                    <tr>
+                                                <tr>
                                                         <th>Product name</th>
                                                         <th>Total</th>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Textured Printed Dress <span>75 X 3</span></td>
-                                                        <td>$25</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Neutral Silk Blouse <span>75 X 3</span></td>
-                                                        <td>$25</td>
-                                                    </tr>
+                                                <?php
+                                                $userId = 1;
+                                    
+                                                $sql = "SELECT * FROM `add_to_carts` WHERE `user_id` = ?";
+                    $select = $conn->prepare($sql);
+                    $select->execute([$userId]);
+                    $carts = $select->fetchAll(PDO::FETCH_ASSOC);
+                    $totalAmount = 0;
+                    foreach ($carts as $cart) {
+                        $product = $conn->prepare("SELECT * FROM `products` WHERE `id` = ?");
+                        $product->execute([$cart["product_id"]]);
+                        $product = $product->fetch(PDO::FETCH_ASSOC);
+                        $total = $product['price'] * $cart['quantity'];
+                        $totalAmount += $total;
+                        echo "<tr>
+                                <td>{$product['name']} <span>{$cart['quantity']} X {$product['price']}</span></td>
+                               <td>Rs.{$total}</td>
+                              </tr>";
+                    }
+                                                
+                                                ?>
+                                                   
+                                                    
                                                     <tr>
                                                         <td>Sub Total</td>
-                                                        <td>$325</td>
+                                                        <td>Rs.<?php echo $totalAmount ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -579,15 +594,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><label><input type="radio"  data-parsley-multiple="payment-type">Direct Bank Transfer</label></td>
-                                                        <td><label><input class="" type="radio"  data-parsley-multiple="payment-type">Check payments</label></td>
+                                                        <td><label><input class="" type="radio" name="payment_system" value="Check payments" data-parsley-multiple="payment-type">Check payments</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input class="" type="radio"  data-parsley-multiple="payment-type" checked>Cash on delivery</label></td>
-                                                        <td><label><input type="radio"  data-parsley-multiple="payment-type">PayPal</label></td>
+                                                        <td><label><input class="" type="radio" name="payment_system" value="Cash on delivery"  data-parsley-multiple="payment-type" checked>Cash on delivery</label></td>
+                                                        <td><label><input type="radio" name="payment_system" value="PayPal"  data-parsley-multiple="payment-type">PayPal</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input class="" type="radio"  data-parsley-multiple="payment-type">Credit Card (Stripe)</label></td>
-                                                        <td><label><input type="radio"  data-parsley-multiple="payment-type">Alipay</label></td>
+                                                        <td><label><input class="" type="radio" name="payment_system" value="Credit Card" data-parsley-multiple="payment-type">Credit Card (Stripe)</label></td>
+                                                        <td><label><input type="radio" name="payment_system" value="Alipay" data-parsley-multiple="payment-type">Alipay</label></td>
                                                     </tr>
 
                                                 </tbody>

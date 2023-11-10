@@ -28,7 +28,8 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- CSS Files -->
     <!--==== Google Fonts ====-->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900%7CRoboto+Condensed:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900%7CRoboto+Condensed:300,400,700"
+        rel="stylesheet">
 
     <!--==== Bootstrap css file ====-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -38,7 +39,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Owl Carusel css file -->
     <link rel="stylesheet" href="assets/plugins/owl-carousel/owl.carousel.min.css">
-  
+
 
     <!-- Magnific-Popup css file -->
     <link rel="stylesheet" href="assets/plugins/Magnific-Popup/magnific-popup.css">
@@ -88,8 +89,10 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                             <!-- Logo -->
                             <div class="logo">
                                 <a href="index.html">
-                                    <img class='default-logo' src="assets/img/beshabhusa.png" width="100px" data-rjs="2" alt="ecommerce">
-                                    <img class='sticky-logo' src="assets/img/beshabhusa.png" width="100px" data-rjs="2" alt="ecommerce">
+                                    <img class='default-logo' src="assets/img/beshabhusa.png" width="100px" data-rjs="2"
+                                        alt="ecommerce">
+                                    <img class='sticky-logo' src="assets/img/beshabhusa.png" width="100px" data-rjs="2"
+                                        alt="ecommerce">
                                 </a>
                             </div>
                             <!-- End of Logo -->
@@ -108,7 +111,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <a href="index.php">Home</a>
 
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="shop-4col-withbar.php">Shop</a>
                                             </li>
                                             <li>
@@ -119,9 +122,11 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                                     while ($row = $fetchCategoryStmt->fetch()) {
 
                                                         $id = base64_encode($row['id']); ?>
-                                                        <li><a href="cat.php?catId=<?php echo $id; ?>"> <?php echo $row['name']; ?></a></li>
-                                                        
-                                                    <?php
+                                                        <li><a href="cat.php?catId=<?php echo $id; ?>">
+                                                                <?php echo $row['name']; ?>
+                                                            </a></li>
+
+                                                        <?php
                                                         $sl++;
                                                     }
                                                     ?>
@@ -242,7 +247,8 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col">
                         <div class="catagory-menu-header d-flex  align-items-center">
                             <div class="logo">
-                                <a href="index.html"><img class='default-logo' src="assets/img/logo.png" data-rjs="2" alt="ecommerce"></a>
+                                <a href="index.html"><img class='default-logo' src="assets/img/logo.png" data-rjs="2"
+                                        alt="ecommerce"></a>
                             </div>
                             <div class="menu-cancel">
                                 <img src="assets/img/icons/close-button.svg" class="svg" alt="">
@@ -256,7 +262,8 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-md-8 offset-md-2">
                         <div class="search-bar primary-form parsley-validate">
                             <form action="#">
-                                <input type="text" class="theme-input-style" placeholder="Type Your Search Here" required>
+                                <input type="text" class="theme-input-style" placeholder="Type Your Search Here"
+                                    required>
                                 <input type="submit" class="search-icon" value="&#xF002;" disabled>
                             </form>
                         </div>
@@ -337,74 +344,88 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     <!-- offcanvas menu-->
-<!-- offcanvas overlay -->
-<div class="offcanvas-overlay"></div>
-<!-- offcanvas overlay -->
-<!-- offcanvas mainmenu -->
-<div class="offcanvas offcanvas-mainmenu">
+    <!-- offcanvas overlay -->
+    <div class="offcanvas-overlay"></div>
+    <!-- offcanvas overlay -->
+    <!-- offcanvas mainmenu -->
+    <div class="offcanvas offcanvas-mainmenu">
         <div class="offcanvas-cancel">
             <img src="assets/img/icons/close-button.svg" class="svg" alt="">
         </div>
     </div>
     <!-- offcanvas mainmenu -->
-<!-- offcanvas mainmenu -->
-<div class="offcanvas header-offcanvas2">
-    <div class="offcanvas-cancel">
-        <img src="assets/img/icons/close-button.svg" class="svg" alt="">
-    </div>
-</div>
-<!-- offcanvas mainmenu -->
-
-<!-- cart list -->
-<div class="offcanvas offcanvas-cart-list">
-    <div class="offcanvas-head">
-        <div class="head-text">
-            <img src="assets/img/icons/add-bag2.svg" class="svg" alt="">
-            <h3>Cart List</h3>
-        </div>
+    <!-- offcanvas mainmenu -->
+    <div class="offcanvas header-offcanvas2">
         <div class="offcanvas-cancel">
             <img src="assets/img/icons/close-button.svg" class="svg" alt="">
         </div>
     </div>
+    <!-- offcanvas mainmenu -->
 
-    <div class="offcanvas-inner">
-        <div class="added-cart-list">
-            <!-- single cart list -->
-            <?php foreach($fetchService as $row) {
-                                            $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id`= ?");
-
-                                            $fetchProductStmt->execute([$row['product_id']]);
-                                            $fetchProduct = $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
-
-?>
-            <div class="single-added-list" data-cart-item-id="<?php echo $row['id']; ?>">
-                <!-- single cart list left -->
-                <div class="single-item-left media align-items-center">
-                    <img src="<?php echo $fetchProduct['image'];?>" alt=""style="width:80px;height:80px;">
-                    <div class="single-item-details midea-body">
-                        <h5><a href="#"><?php echo $fetchProduct['name'];?></a> </h5>
-                        <p id="price_<?php echo $row['id'];?>"><?php echo $price = $fetchProduct['price'];?></p>
-                        
-                    </div>
-                </div>
-                <!-- End of single cart list left -->
-                
-                <!-- Single wish list right -->
-                <div class="single-item-right text-right">
-                    <a href="#"><img src="assets/img/icons/remove.svg" alt="" class="svg"></a>
-                    <div class="product-quantity">
-                        <span onclick="minusQuantity(<?php echo $row['id'];?>)"><img src="assets/img/icons/minus.svg" class="svg" alt=""></span>
-                        <input  type="text" id="quantity_<?php echo $row['id'];?>" value="<?php echo $quantity =$row ['quantity'];?>" class="product-quantity-list product-size">
-                        <span onclick="plusQuantity(<?php echo $row['id'];?>)"><img src="assets/img/icons/plus.svg" class="svg" alt=""></span>
-                    </div>
-                    <h6 id="product_total_amt_<?php echo $row['id'];?>"><?php echo  $total = $quantity * $price;?></h6>
-                </div>
-                
-                <!-- End of Single cart list right -->
+    <!-- cart list -->
+    <div class="offcanvas offcanvas-cart-list">
+        <div class="offcanvas-head">
+            <div class="head-text">
+                <img src="assets/img/icons/add-bag2.svg" class="svg" alt="">
+                <h3>Cart List</h3>
             </div>
-            <?php } ?>
+            <div class="offcanvas-cancel">
+                <img src="assets/img/icons/close-button.svg" class="svg" alt="">
+            </div>
+        </div>
 
-            <!-- End of single cart list -->
+        <div class="offcanvas-inner">
+            <div class="added-cart-list">
+                <!-- single cart list -->
+                <?php foreach ($fetchService as $row) {
+                    $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id`= ?");
+
+                    $fetchProductStmt->execute([$row['product_id']]);
+                    $fetchProduct = $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
+                    $price = $fetchProduct['price'];
+                    $quantity = $row['quantity'];
+                    $subtotal = $price * $quantity;
+                    $totalSubTotal += $subtotal;
+
+                    ?>
+                    <div class="single-added-list" data-cart-item-id="<?php echo $row['id']; ?>">
+                        <!-- single cart list left -->
+                        <div class="single-item-left media align-items-center">
+                            <img src="<?php echo $fetchProduct['image']; ?>" alt="" style="width:80px;height:80px;">
+                            <div class="single-item-details midea-body">
+                                <h5><a href="#">
+                                        <?php echo $fetchProduct['name']; ?>
+                                    </a> </h5>
+                                <p id="price_<?php echo $row['id']; ?>">
+                                    <?php echo $price = $fetchProduct['price']; ?>
+                                </p>
+
+                            </div>
+                        </div>
+                        <!-- End of single cart list left -->
+
+                        <!-- Single wish list right -->
+                        <div class="single-item-right text-right">
+                            <a href="#"><img src="assets/img/icons/remove.svg" alt="" class="svg"></a>
+                            <div class="product-quantity">
+                                <span onclick="minusQuantity(<?php echo $row['id']; ?>)"><img
+                                        src="assets/img/icons/minus.svg" class="svg" alt=""></span>
+                                <input type="text" id="quantity_<?php echo $row['id']; ?>"
+                                    value="<?php echo $quantity = $row['quantity']; ?>"
+                                    class="product-quantity-list product-size">
+                                <span onclick="plusQuantity(<?php echo $row['id']; ?>)"><img src="assets/img/icons/plus.svg"
+                                        class="svg" alt=""></span>
+                            </div>
+                            <h6 id="product_total_amt_<?php echo $row['id']; ?>">
+                                <?php echo $total = $quantity * $price; ?>
+                            </h6>
+                        </div>
+
+                        <!-- End of Single cart list right -->
+                    </div>
+                <?php } ?>
+
+                <!-- End of single cart list -->
 
             </div>
             <!-- End of single cart list -->
@@ -412,7 +433,9 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- total price -->
         <div class="total-price">
             <h5>Sub Total</h5>
-            <h3 >₹<span id="product_total_amt"><?php echo number_format($totalSubTotal,2); ?></span></h3>
+            <h3>₹<span id="product_total_amt">
+                    <?php echo number_format($totalSubTotal, 2); ?>
+                </span></h3>
         </div>
         <!-- End of total price -->
 
@@ -437,111 +460,113 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <!-- add to button an support -->
     </div>
-</div>
-<!-- End of cart list -->
-
-<!-- log in and register -->
-<div class="offcanvas offcanvas-account">
-    <div class="offcanvas-head">
-        <div class="head-text">
-            <img src="assets/img/icons/account2.svg" class="svg" alt="">
-            <h3>Account</h3>
-        </div>
-        <div class="offcanvas-cancel">
-            <img src="assets/img/icons/close-button.svg" class="svg" alt="">
-        </div>
     </div>
+    <!-- End of cart list -->
 
-    <div class="offcanvas-inner">
-        <!-- login register -->
-        <div class="login-register-wrap">
-            <!-- login register nav -->
-            <div class="login-register-nav">
-                <nav class="nav lr-nav text-center">
-                    <a id="nav-login-tab" data-toggle="tab" href="#login" class="active">Log In</a>
-                    <a id="nav-register-tab" data-toggle="tab" href="#reg">Register</a>
-                </nav>
+    <!-- log in and register -->
+    <div class="offcanvas offcanvas-account">
+        <div class="offcanvas-head">
+            <div class="head-text">
+                <img src="assets/img/icons/account2.svg" class="svg" alt="">
+                <h3>Account</h3>
             </div>
-            <!-- End of login register nav -->
+            <div class="offcanvas-cancel">
+                <img src="assets/img/icons/close-button.svg" class="svg" alt="">
+            </div>
+        </div>
 
-            <!-- login register content -->
-            <div class="login-register-content tab-content">
-                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="nav-login-tab">
-                    <div class="primary-form parsley-validate">
-                        <form action="#">
-                            <!-- loging input -->
-                            <div class="name-input input-field">
-                                <label>
-                                    <img src="assets/img/icons/account3.svg" class="svg" alt="">
-                                </label>
-                                <input type="text" placeholder='User name / Email Address' class="theme-input-style" required>
-                            </div>
+        <div class="offcanvas-inner">
+            <!-- login register -->
+            <div class="login-register-wrap">
+                <!-- login register nav -->
+                <div class="login-register-nav">
+                    <nav class="nav lr-nav text-center">
+                        <a id="nav-login-tab" data-toggle="tab" href="#login" class="active">Log In</a>
+                        <a id="nav-register-tab" data-toggle="tab" href="#reg">Register</a>
+                    </nav>
+                </div>
+                <!-- End of login register nav -->
 
-                            <div class="password-input input-field">
-                                <label>
-                                    <img src="assets/img/icons/regi-icon.svg" class="svg" alt="">
-                                </label>
-                                <input type="password" placeholder='password' class="theme-input-style" required>
-                            </div>
-                            <!-- loging input -->
-                            <button type="submit" class="btn btn-fill-type">log In</button>
-                        </form>
-                        <p>Don’t have an account,<a href="#"> register now!</a></p>
+                <!-- login register content -->
+                <div class="login-register-content tab-content">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="nav-login-tab">
+                        <div class="primary-form parsley-validate">
+                            <form action="#">
+                                <!-- loging input -->
+                                <div class="name-input input-field">
+                                    <label>
+                                        <img src="assets/img/icons/account3.svg" class="svg" alt="">
+                                    </label>
+                                    <input type="text" placeholder='User name / Email Address' class="theme-input-style"
+                                        required>
+                                </div>
+
+                                <div class="password-input input-field">
+                                    <label>
+                                        <img src="assets/img/icons/regi-icon.svg" class="svg" alt="">
+                                    </label>
+                                    <input type="password" placeholder='password' class="theme-input-style" required>
+                                </div>
+                                <!-- loging input -->
+                                <button type="submit" class="btn btn-fill-type">log In</button>
+                            </form>
+                            <p>Don’t have an account,<a href="#"> register now!</a></p>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="reg" role="tabpanel" aria-labelledby="nav-login-tab">
+                        <div class="primary-form parsley-validate">
+                            <form action="#">
+                                <!-- register input -->
+                                <div class="name-input input-field">
+                                    <label>
+                                        <img src="assets/img/icons/account-icon.svg" class="svg" alt="">
+                                    </label>
+                                    <input type="text" placeholder='User name / Email Address' class="theme-input-style"
+                                        required>
+                                </div>
+
+                                <div class="email-input input-field">
+                                    <label>
+                                        <img src="assets/img/icons/email-icon.svg" class="svg" alt="">
+                                    </label>
+                                    <input type="email" placeholder='email' class="theme-input-style" required>
+                                </div>
+
+                                <div class="password-input input-field">
+                                    <label>
+                                        <img src="assets/img/icons/regi-icon.svg" class="svg" alt="">
+                                    </label>
+                                    <input type="password" placeholder='password' class="theme-input-style" required>
+                                </div>
+                                <!-- register input -->
+                                <button type="submit" class="btn btn-fill-type">Register</button>
+                            </form>
+                            <p>Have an account,<a href="#">Log In now!</a></p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="reg" role="tabpanel" aria-labelledby="nav-login-tab">
-                    <div class="primary-form parsley-validate">
-                        <form action="#">
-                            <!-- register input -->
-                            <div class="name-input input-field">
-                                <label>
-                                    <img src="assets/img/icons/account-icon.svg" class="svg" alt="">
-                                </label>
-                                <input type="text" placeholder='User name / Email Address' class="theme-input-style" required>
-                            </div>
-
-                            <div class="email-input input-field">
-                                <label>
-                                    <img src="assets/img/icons/email-icon.svg" class="svg" alt="">
-                                </label>
-                                <input type="email" placeholder='email' class="theme-input-style" required>
-                            </div>
-
-                            <div class="password-input input-field">
-                                <label>
-                                    <img src="assets/img/icons/regi-icon.svg" class="svg" alt="">
-                                </label>
-                                <input type="password" placeholder='password' class="theme-input-style" required>
-                            </div>
-                            <!-- register input -->
-                            <button type="submit" class="btn btn-fill-type">Register</button>
-                        </form>
-                        <p>Have an account,<a href="#">Log In now!</a></p>
-                    </div>
-                </div>
+                <!-- End of login register content -->
             </div>
-            <!-- End of login register content -->
-        </div>
-        <!-- End of login register -->
+            <!-- End of login register -->
 
-        <!-- add to button an support -->
-        <div class="cart-support">
-            <p class="roboto">Support</p>
-            <ul class="list-unstyled">
-                <li>
-                    <span><i class="fa fa-phone"></i></span>
-                    Phone: +00 654 321 9874
-                </li>
-                <li>
-                    <span><i class="fa fa-map-marker"></i></span>
-                    1622 Colins Street West, Strawberry (Le), ITALY
-                </li>
-            </ul>
+            <!-- add to button an support -->
+            <div class="cart-support">
+                <p class="roboto">Support</p>
+                <ul class="list-unstyled">
+                    <li>
+                        <span><i class="fa fa-phone"></i></span>
+                        Phone: +00 654 321 9874
+                    </li>
+                    <li>
+                        <span><i class="fa fa-map-marker"></i></span>
+                        1622 Colins Street West, Strawberry (Le), ITALY
+                    </li>
+                </ul>
+            </div>
+            <!-- add to button an support -->
         </div>
-        <!-- add to button an support -->
     </div>
-</div>
-<!-- End of log in and ragister -->
+    <!-- End of log in and ragister -->
 
-<!-- End of offcanvas menu-->
+    <!-- End of offcanvas menu-->
