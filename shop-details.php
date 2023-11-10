@@ -542,7 +542,7 @@ $fetchProductStmt->execute([$id]);
                                     <!-- loging input -->
                                     <button type="login" class="btn btn-fill-type" name="login">log In</button>
                                 </form>
-                                <p>Don’t have an account,<a href="login,php">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
+                                <p>Don’t have an account,<a href="login.php">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
                             </div>
                         
 
