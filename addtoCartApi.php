@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['type'] == 'addtocart') {
   $color = 'red'; 
   $productId = $_POST['productId'];
   $quantity = $_POST['quantity'];
-  $userid = 1;
+  $userid = $_POST['userId'];
 
   $fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id` = ? AND `product_id` = ?");
   $fetchServiceStmt->execute([$userid, $productId]);

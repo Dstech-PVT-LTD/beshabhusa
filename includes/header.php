@@ -1,15 +1,15 @@
 <?php
 include "includes/config.php";
 session_start();
-
+$id = $_SESSION['id'];
 $fetchCategoryStmt = $conn->prepare("SELECT * FROM `categories` ORDER BY `id` DESC");
 
 $fetchCategoryStmt->execute([]);
 
 
-$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= 1");
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
-$fetchServiceStmt->execute();
+$fetchServiceStmt->execute([$id]);
 $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>

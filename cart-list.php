@@ -1,10 +1,12 @@
 <?php include "./includes/header.php"; ?>
 
 <?php
+session_start();
+ $userId = $_SESSION['id'];
+ print_r($userId );
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
-$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= 1");
-
-$fetchServiceStmt->execute();
+$fetchServiceStmt->execute([$userId]);
 $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>

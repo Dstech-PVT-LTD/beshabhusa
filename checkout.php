@@ -523,7 +523,7 @@
                                                         <th>Total</th>
                                                     </tr>
                                                 <?php
-                                                $userId = 1;
+                                             $userId = $_SESSION['id'];
                                     
                                                 $sql = "SELECT * FROM `add_to_carts` WHERE `user_id` = ?";
                     $select = $conn->prepare($sql);
