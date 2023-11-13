@@ -171,7 +171,7 @@ if (isset($_POST['login'])) {
                                     <!-- loging input -->
                                     <button type="login" class="btn btn-fill-type" name="login">log In</button>
                                 </form>
-                                <p>Don’t have an account,<a href="#">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
+                                <p> Reset Password <a href="forgot_password.php">Forgot Password!</a></p>
                             </div>
                         </div>
 

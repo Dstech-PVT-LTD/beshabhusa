@@ -158,7 +158,7 @@
         <!-- back to top -->
     
         <!-- Modal -->
-        <div class="modal-window-container fancy">
+        <!-- <div class="modal-window-container fancy">
             <div class="modal-window-overlay"></div>
             <div class="modal-window-content">
                 <div class="modal-window-inner text-center">
@@ -177,7 +177,7 @@
                     </div>  
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End of main wrapper -->
     
         <!-- Modal quick view-->
