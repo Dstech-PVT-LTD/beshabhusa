@@ -1590,7 +1590,7 @@ label input[type=radio] {
 }
 
 .page-title-inner {
-    padding: 176px 0 40px;
+    padding: 143px 0 40px;
 }
 .main-header.inner-page-header {
     background: #fff;
@@ -6410,10 +6410,10 @@ input[type="submit"] {
 }
 .shop_table .product-quantity input,
 .shop_table .product-size input {
-    height: 35px;
-    width: 35px;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid rgba(0,0,0,.5);
     text-align: center;
     background: #fff;
     margin:0 8px;
@@ -6673,10 +6673,10 @@ tr.woocommerce-cart-form__cart-item.cart_item .product-size {
     border-color: #000000;
 }
 .billing-details-wrap {
-    margin-top: 70px;
+    /* margin-top: 70px; */
 }
 .billing-details-wrap {
-    margin-top: 70px;
+    /* margin-top: 70px; */
 }
 
 .billing-details {
