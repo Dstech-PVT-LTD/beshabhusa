@@ -3,7 +3,7 @@
 <?php
 session_start();
  $userId = $_SESSION['id'];
- print_r($_SESSION);
+
 $fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
 $fetchServiceStmt->execute([$userId]);

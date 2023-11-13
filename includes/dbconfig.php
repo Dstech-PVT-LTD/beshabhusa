@@ -12,7 +12,7 @@ $driver = "mysql";
 $socket = "https://beshabhusa.com";
 //mychanges
 
-function sendEmail ($from, $to, $subject, $mailContent) {
+// function sendEmail ($from, $to, $subject, $mailContent) {
   // global $sendgrid_api_key;
   // // echo "<script>console.log('$from, $to, $fromUserName, $subject, $mailContent')</script>";
   // // echo "<script>console.log('send email started')</script>";
@@ -40,15 +40,15 @@ function sendEmail ($from, $to, $subject, $mailContent) {
   //     mail($to,$subject,$message,$header);
   //   }
   // } catch (Exception $e) {
-    $subject = "$subject";
-    $message = $mailContent;
-    $header = "From: $from \r\n";
-    $header .= "MIME-Version: 1.0\r\n";
-    $header .= "Content-type: text/html\r\n";
-    mail($to,$subject,$message,$header);
+    // $subject = "$subject";
+    // $message = $mailContent;
+    // $header = "From: $from \r\n";
+    // $header .= "MIME-Version: 1.0\r\n";
+    // $header .= "Content-type: text/html\r\n";
+    // mail($to,$subject,$message,$header);
         // echo "<script>console.log('In send mail catch')</script>";
   // }
-}
+// }
 
 
 

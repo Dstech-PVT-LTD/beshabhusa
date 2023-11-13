@@ -52,7 +52,8 @@ if (($_SERVER["REQUEST_METHOD"] == "POST")) {
 
   if (($_POST['first_name'] != '') && ($_POST['last_name'] != '') && ($_POST['email'] != '') && ($_POST['phone'] != '') && ($_POST['country'] != '') && ($_POST['city'] != '') && ($_POST['street_address'] != '') && ($_POST['street_addressop'] != '') && ($_POST['dist'] != '') && ($_POST['pin_code'] != '')) {
    $email = $_POST['email'];
-    $userId = 1;
+   session_start();
+   $userId = $_SESSION['id'];
 $orderId = "ORS" . (10000 + rand(1, 90000));
 $paymentSystem = isset($_POST['payment_system']) ? $_POST['payment_system'] : '';
 
@@ -72,7 +73,7 @@ $paymentSystem = isset($_POST['payment_system']) ? $_POST['payment_system'] : ''
       $array = [$userId,$cart['product_id'],$orderId, $_POST['first_name'], $_POST['last_name'], $_POST['phone'], $_POST['email'], $_POST['country'], $_POST['city'], $_POST['street_address'], $_POST['street_addressop'], $_POST['dist'], $_POST['pin_code'],  $cart['quantity'], $product['price'],$paymentSystem];
       $insert = $conn->prepare($sql);
       $result1 = $insert->execute($array);
-   $delete = $conn->prepare('DELETE FROM `add_to_cart` WHERE `id`=?');
+   $delete = $conn->prepare('DELETE FROM `add_to_carts` WHERE `id`=?');
    $result2 = $delete->execute([$cart['id']]);
       
     }
