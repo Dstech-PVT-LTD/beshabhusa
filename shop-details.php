@@ -155,7 +155,7 @@ $fetchProductStmt->execute([$id]);
                                     <span class="list-heading">quantity:</span>
                                     <div class="product-quantity">
                                         <span class="minus"><img src="assets/img/icons/minus.svg" class="svg" alt=""></span>
-                                        <input id="quantity1" type="text" value="0" class="product-quantity-list product-size">
+                                        <input id="quantity1" type="text" value="1" class="product-quantity-list product-size">
                                         <span class="plus"><img src="assets/img/icons/plus.svg" class="svg" alt=""></span>
                                     </div>
                                 </li>
