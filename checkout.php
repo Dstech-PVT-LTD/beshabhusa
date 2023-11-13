@@ -335,10 +335,10 @@
     <!-- check out wrap -->
     <section class="pt-100 pb-100">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <!-- checkout register wrap -->
-                    <div class="checkout-register-wrap">
+            <!-- <div class="row">
+                <div class="col-md-6"> -->
+                    
+                    <!-- <div class="checkout-register-wrap">
                         <div class="checkout-register">
                             <form action="#" method="POST">
                                 <div class="checkout-register-title">
@@ -355,12 +355,12 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <!--End of checkout register wrap -->
-                </div>
+                    </div> -->
+                    
+                <!-- </div> -->
 
-                <div class="col-md-6">
-                    <!-- coupon register wrap -->
+                <!-- <div class="col-md-6">
+                   
                     <div class="coupon-register-wrap">
                         <div class="coupon-register">
                             <form action="#" method="POST">
@@ -374,9 +374,9 @@
                             </form>
                         </div>
                     </div>
-                    <!--End of coupon register wrap -->
-                </div>
-            </div>
+                   
+                </div> -->
+            <!-- </div> -->
             <div class="row">
                 <div class="col-12">
                     <!-- billing details wrap -->
