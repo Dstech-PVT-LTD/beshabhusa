@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 <?php
 $servername = "localhost";
 // $username = "beshabhusa_admin";
@@ -53,3 +55,4 @@ function sendEmail ($from, $to, $subject, $mailContent) {
 
 
 ?>
+>>>>>>> smriti-dev

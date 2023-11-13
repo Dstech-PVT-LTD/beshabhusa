@@ -1,4 +1,7 @@
 <?php include "./includes/header.php"; ?>
+<<<<<<< HEAD
+<section class="pt-100 pb-10">
+=======
 
 <?php
 if (isset($_POST['submit'])) {
@@ -37,6 +40,7 @@ if (isset($_POST['submit'])) {
 ?>
 
 <section class="pt-100 pb-100">
+>>>>>>> aaca274ee6f4b3caa9f349a0e75b1e099fb9e2e6
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
