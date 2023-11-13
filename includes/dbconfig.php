@@ -1,4 +1,5 @@
-
+<<<<<<< HEAD
+=======
 <?php
 $servername = "localhost";
 // $username = "beshabhusa_admin";
@@ -11,7 +12,7 @@ $dbname = "beshabhusa_db";
 // $dbname = "dstechsi_purifier";
 $driver = "mysql";
 $socket = "https://beshabhusa.com";
-
+//mychanges
 
 function sendEmail ($from, $to, $subject, $mailContent) {
   // global $sendgrid_api_key;
@@ -54,4 +55,4 @@ function sendEmail ($from, $to, $subject, $mailContent) {
 
 
 ?>
-
+>>>>>>> smriti-dev
