@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $userId = $loginResult['id'];
                 session_start();
-                $_SESSION['users'] = $loginResult['id'];
+                $_SESSION['id'] = $loginResult['id'];
                 $_SESSION['usersName'] = $loginResult['first_name'] . ' ' . $loginResult['last_name'];
                 $_SESSION['usersEmail'] = $loginResult['email'];
                 echo json_encode(['success' => true, 'message' => 'Login successful','userId' => $userId, 'redirect' => 'cart-list.php']);

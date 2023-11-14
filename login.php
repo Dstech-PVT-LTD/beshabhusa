@@ -81,7 +81,7 @@ if (isset($_POST['login'])) {
 
                 session_start();
 
-                $_SESSION['admin'] = $loginResult['id'];
+                $_SESSION['id'] = $loginResult['id'];
                 $_SESSION['adminName'] = $loginResult['first_name'] . ' ' . $loginResult['last_name'];
                 $_SESSION['adminEmail'] = $loginResult['email'];
 

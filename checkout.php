@@ -1,6 +1,14 @@
 <?php include "includes/header.php"; ?>
 
-<?php ?>
+<?php
+session_start();
+$userId = $_SESSION['id'];
+$sql = "SELECT * FROM `address` WHERE `user_id` = ?";
+$select = $conn->prepare($sql);
+$select->execute([$userId]);
+$carts = $select->fetchAll(PDO::FETCH_ASSOC);
+print_r($_SESSION);
+?>
 
 <!-- offcanvas menu-->
 
@@ -156,7 +164,8 @@
                                 <label>
                                     <img src="assets/img/icons/account3.svg" class="svg" alt="">
                                 </label>
-                                <input type="text" placeholder='User name / Email Address' class="theme-input-style" required>
+                                <input type="text" placeholder='User name / Email Address' class="theme-input-style"
+                                    required>
                             </div>
 
                             <div class="password-input input-field">
@@ -180,7 +189,8 @@
                                 <label>
                                     <img src="assets/img/icons/account-icon.svg" class="svg" alt="">
                                 </label>
-                                <input type="text" placeholder='User name / Email Address' class="theme-input-style" required>
+                                <input type="text" placeholder='User name / Email Address' class="theme-input-style"
+                                    required>
                             </div>
 
                             <div class="email-input input-field">
@@ -261,11 +271,13 @@
                     <div class="checkout-register">
                         <form action="#" method="POST">
                             <div class="checkout-register-title">
-                                <h5><a data-toggle="collapse" href="#register" aria-expanded="false">Are You Returning Customer? <span> Click Here to Login</span> </a></h5>
+                                <h5><a data-toggle="collapse" href="#register" aria-expanded="false">Are You Returning
+                                        Customer? <span> Click Here to Login</span> </a></h5>
                             </div>
                             <div class="checkout-register-input input-btn-style collapse show" id="register">
                                 <input type="email" class="theme-input-style" placeholder="Enter Your Email" required>
-                                <input type="password" class="theme-input-style" placeholder="Enter Your Password" required>
+                                <input type="password" class="theme-input-style" placeholder="Enter Your Password"
+                                    required>
                                 <div class="form-btn-field">
                                     <button type="submit" class="btn">Log in</button>
                                     <label class="m-0"><input type="checkbox">Remember Me?</label>
@@ -284,10 +296,12 @@
                     <div class="coupon-register">
                         <form action="#" method="POST">
                             <div class="coupon-register-title">
-                                <h5> <a data-toggle="collapse" href="#coupon" aria-expanded="false">Have A Coupon? <span>Click here to enter your code</span></a></h5>
+                                <h5> <a data-toggle="collapse" href="#coupon" aria-expanded="false">Have A Coupon?
+                                        <span>Click here to enter your code</span></a></h5>
                             </div>
                             <div class="checkout-register-input input-btn-style collapse show" id="coupon">
-                                <input type="number" class="theme-input-style" placeholder='Coupon Code' name="coupon" required>
+                                <input type="number" class="theme-input-style" placeholder='Coupon Code' name="coupon"
+                                    required>
                                 <button type="submit" class="btn">Apply Coupon</button>
                             </div>
                         </form>
@@ -302,107 +316,138 @@
                     <div class="p-2">
                         <div class="card-header d-flex justify-content-between">
                             <h5>Delivery Address</h5>
-                            <div data-toggle="modal" data-target="#myModal">
+                            <div onclick="editAddress()" data-toggle="modal" data-target="#myModal">
                                 <span>edit</span>
                             </div>
 
                         </div>
 
                         <div class="">
-                            <input type="checkbox" name="" id="adress_check">
-                            <label for="adress_check">Susanta kumar Behera</label>
+                            <?php
+
+                            foreach ($carts as $cart) {
+                                $cartjson = json_encode($cart);
+                                $address_encode = base64_encode($cartjson);
+
+
+                                ?>
+                                <div>
+                                    <input type="radio" class="addradio" data-address="<?php echo $address_encode ?>" name="address"
+                                        id="adress_check_<?php echo $cart['id'] ?>">
+                                    <label for="adress_check_<?php echo $cart['id'] ?>">
+                                        <?php echo $cart['first_name'] . ' ' . $cart['last_name'] ?>
+                                    </label>
+                                    <p class="ms-3 editable px-2">
+                                        <?php echo $cart['street_address'] . ' ' . $cart['city'] . ' ' . $cart['dist'] . ' ' . $cart['country'] . ' ' . $cart['postcode'] ?>
+                                    </p>
+                                </div>
+                            <?php } ?>
                             <div>
-                                <p class="ms-3 editable px-2">AT-BBSR,PO-BBSR,PS-BBSR,BARAMUNDA,BHUBANESWAR,ODISHA,-764977</p>
                                 <div class="container mt-1">
 
 
                                     <!-- Button trigger collapse -->
-                                    <button type="button" class="btn " data-toggle="collapse" data-target="#collapseExample">
-                                       New Billing Details
+                                    <button type="button" class="btn " data-toggle="collapse"
+                                        data-target="#collapseExample">
+                                        New Billing Details
                                     </button>
 
                                     <!-- Collapsible content -->
                                     <div class="collapse mt-3" id="collapseExample">
                                         <div class="card card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <!-- first name -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="First Name" name="first_name" required>
-                                                    </span>
-                                                    <!--End of first name -->
+                                            <form id="address_form">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <!-- first name -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="First Name" name="first_name" required>
+                                                            <input type="hidden" name="user_id"
+                                                                value="<?php echo $userId ?>">
+                                                        </span>
+                                                        <!--End of first name -->
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <!-- last name -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="Last Name" name="last_name" required>
+                                                        </span>
+                                                        <!--End of last name -->
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <!-- last name -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="Last Name" name="last_name" required>
-                                                    </span>
-                                                    <!--End of last name -->
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <!-- Phone No -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="number" class="theme-input-style"
+                                                                placeholder="Phone No" name="phone" required>
+                                                        </span>
+                                                        <!-- End of Phone No -->
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <!-- Phone No -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="number" class="theme-input-style" placeholder="Phone No" name="phone" required>
-                                                    </span>
-                                                    <!-- End of Phone No -->
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <!-- Email Address -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="email" class="theme-input-style"
+                                                                placeholder="Email Address" name="email" required>
+                                                        </span>
+                                                        <!-- End of Email Address -->
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <!-- Email Address -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="email" class="theme-input-style" placeholder="Email Address" name="email" required>
-                                                    </span>
-                                                    <!-- End of Email Address -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <!-- Country -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="Country" name="country" required>
+                                                        </span>
+                                                        <!-- End of Country -->
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <!-- Town / City -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="Town / City" name="city">
+                                                        </span>
+                                                        <!-- End of Town / City -->
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <!-- Country -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="Country" name="country" required>
-                                                    </span>
-                                                    <!-- End of Country -->
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <!-- Street Address -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="Street Address" name="street_address">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="Street Address(optional)"
+                                                                name="street_addressOpt">
+                                                        </span>
+                                                        <!-- End of Street Address -->
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <!-- Town / City -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="Town / City" name="city">
-                                                    </span>
-                                                    <!-- End of Town / City -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <!-- District -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="District" name="dist">
+                                                        </span>
+                                                        <!-- End of District -->
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <!-- Postcode / ZIP -->
+                                                        <span class="woocommerce-input-wrapper">
+                                                            <input type="text" class="theme-input-style"
+                                                                placeholder="Postcode / ZIP" name="postcode">
+                                                        </span>
+                                                        <!-- End of Postcode / ZIP -->
+                                                    </div>
+
+                                                    <button type="submit" class="btn mt-2">Uploade</button>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <!-- Street Address -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="Street Address" name="street_address">
-                                                        <input type="text" class="theme-input-style" placeholder="Street Address(optional)" name="street_addressop">
-                                                    </span>
-                                                    <!-- End of Street Address -->
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <!-- District -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="District" name="dist">
-                                                    </span>
-                                                    <!-- End of District -->
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <!-- Postcode / ZIP -->
-                                                    <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="theme-input-style" placeholder="Postcode / ZIP" name="pin_code">
-                                                    </span>
-                                                    <!-- End of Postcode / ZIP -->
-                                                </div>
-                                               <form action="">
-                                              <button type="" class="btn mt-2">Uploade</button>
-                                            </div>
-                                               </form>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -417,7 +462,7 @@
                     <form id="checkoutForm">
                         <div class="row justify-content-center">
 
-                      
+
                             <div class="col-lg-12">
                                 <!-- your order -->
                                 <div class="checkout-review-order-wrap">
@@ -457,7 +502,9 @@
 
                                                 <tr>
                                                     <td>Sub Total</td>
-                                                    <td>Rs.<?php echo $totalAmount ?></td>
+                                                    <td>Rs.
+                                                        <?php echo $totalAmount ?>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -503,16 +550,29 @@
                                         <table class="payment-system-table">
                                             <tbody>
                                                 <tr>
-                                                    <td><label><input type="radio" data-parsley-multiple="payment-type">Direct Bank Transfer</label></td>
-                                                    <td><label><input class="" type="radio" name="payment_system" value="Check payments" data-parsley-multiple="payment-type">Check payments</label></td>
+                                                    <td><label><input type="radio"
+                                                                data-parsley-multiple="payment-type">Direct Bank
+                                                            Transfer</label></td>
+                                                    <td><label><input class="" type="radio" name="payment_system"
+                                                                value="Check payments"
+                                                                data-parsley-multiple="payment-type">Check
+                                                            payments</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label><input class="" type="radio" name="payment_system" value="Cash on delivery" data-parsley-multiple="payment-type" checked>Cash on delivery</label></td>
-                                                    <td><label><input type="radio" name="payment_system" value="PayPal" data-parsley-multiple="payment-type">PayPal</label></td>
+                                                    <td><label><input class="" type="radio" name="payment_system"
+                                                                value="Cash on delivery"
+                                                                data-parsley-multiple="payment-type" checked>Cash on
+                                                            delivery</label></td>
+                                                    <td><label><input type="radio" name="payment_system" value="PayPal"
+                                                                data-parsley-multiple="payment-type">PayPal</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label><input class="" type="radio" name="payment_system" value="Credit Card" data-parsley-multiple="payment-type">Credit Card (Stripe)</label></td>
-                                                    <td><label><input type="radio" name="payment_system" value="Alipay" data-parsley-multiple="payment-type">Alipay</label></td>
+                                                    <td><label><input class="" type="radio" name="payment_system"
+                                                                value="Credit Card"
+                                                                data-parsley-multiple="payment-type">Credit Card
+                                                            (Stripe)</label></td>
+                                                    <td><label><input type="radio" name="payment_system" value="Alipay"
+                                                                data-parsley-multiple="payment-type">Alipay</label></td>
                                                 </tr>
 
                                             </tbody>
@@ -525,12 +585,17 @@
                             <div class="col-md-7">
                                 <!-- woocommerce-terms-and-conditions-wrapper -->
                                 <div class="terms-and-conditions-wrapper text-center">
-                                    <p>Your personal data will be used to process your order, support your<br> experience throughout this website, and for other purposes described in our <a href="#">privacy policy</a>.</p>
-                                    <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-                                        <input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox">
+                                    <p>Your personal data will be used to process your order, support your<br>
+                                        experience throughout this website, and for other purposes described in our <a
+                                            href="#">privacy policy</a>.</p>
+                                    <label
+                                        class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+                                        <input type="checkbox"
+                                            class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox">
                                         <span>I agree to the <a href="#">terms and conditions</a></span>
                                     </label>
-                                    <button type="submit" class="billing-submit-button btn btn-fill-type">Place Order</button>
+                                    <button type="submit" class="billing-submit-button btn btn-fill-type">Place
+                                        Order</button>
                                 </div>
                                 <!-- End of woocommerce-terms-and-conditions-wrapper -->
                             </div>
@@ -540,7 +605,8 @@
                 <!-- End of billing details wrap -->
             </div>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                 <div class="modal-content">
 
@@ -560,20 +626,25 @@
                                             <div class="login-register-content">
 
                                                 <div class="primary-form parsley-validate">
-                                                    <form method="post" id="">
+                                                    <form method="post" id="address_form_modal">
                                                         <!-- loging input -->
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <!-- first name -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="First Name" name="first_name" required>
+                                                                    <input type="text" class="theme-input-style" id="edit_first_name"
+                                                                        placeholder="First Name" name="first_name"
+                                                                        required>
+                                                                        <input type="hidden" name="id" id="edit_id">
                                                                 </span>
                                                                 <!--End of first name -->
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <!-- last name -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="Last Name" name="last_name" required>
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="Last Name" name="last_name" id="edit_last_name"
+                                                                        required>
                                                                 </span>
                                                                 <!--End of last name -->
                                                             </div>
@@ -582,7 +653,8 @@
                                                             <div class="col-12">
                                                                 <!-- Phone No -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="number" class="theme-input-style" placeholder="Phone No" name="phone" required>
+                                                                    <input type="number" class="theme-input-style"
+                                                                        placeholder="Phone No" id="edit_phone" name="phone" required>
                                                                 </span>
                                                                 <!-- End of Phone No -->
                                                             </div>
@@ -591,7 +663,9 @@
                                                             <div class="col-12">
                                                                 <!-- Email Address -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="email" class="theme-input-style" placeholder="Email Address" name="email" required>
+                                                                    <input type="email" class="theme-input-style"
+                                                                        placeholder="Email Address" id="edit_email" name="email"
+                                                                        required>
                                                                 </span>
                                                                 <!-- End of Email Address -->
                                                             </div>
@@ -600,14 +674,16 @@
                                                             <div class="col-md-6">
                                                                 <!-- Country -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="Country" name="country" required>
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="Country" id="edit_country" name="country" required>
                                                                 </span>
                                                                 <!-- End of Country -->
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <!-- Town / City -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="Town / City" name="city">
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="Town / City" id="edit_city" name="city">
                                                                 </span>
                                                                 <!-- End of Town / City -->
                                                             </div>
@@ -616,8 +692,12 @@
                                                             <div class="col-12">
                                                                 <!-- Street Address -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="Street Address" name="street_address">
-                                                                    <input type="text" class="theme-input-style" placeholder="Street Address(optional)" name="street_addressop">
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="Street Address" id="edit_street_address"
+                                                                        name="street_address">
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="Street Address(optional)" id="edit_street_addressOpt"
+                                                                        name="street_addressOpt">
                                                                 </span>
                                                                 <!-- End of Street Address -->
                                                             </div>
@@ -626,14 +706,16 @@
                                                             <div class="col-md-6">
                                                                 <!-- District -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="District" name="dist">
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="District" id="edit_dist"  name="dist">
                                                                 </span>
                                                                 <!-- End of District -->
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <!-- Postcode / ZIP -->
                                                                 <span class="woocommerce-input-wrapper">
-                                                                    <input type="text" class="theme-input-style" placeholder="Postcode / ZIP" name="pin_code">
+                                                                    <input type="text" class="theme-input-style"
+                                                                        placeholder="Postcode / ZIP" id="edit_postcode" name="postcode">
                                                                 </span>
                                                                 <!-- End of Postcode / ZIP -->
                                                             </div>
@@ -641,7 +723,8 @@
 
 
                                                         <!-- loging input -->
-                                                        <button type="login" class="btn btn-fill-type mt-3" name="login">Update</button>
+                                                        <button type="submit" class="btn btn-fill-type mt-3"
+                                                            name="login">Update</button>
                                                     </form>
                                                 </div>
 
@@ -661,7 +744,7 @@
             </div>
         </div>
         <div class="row">
-           
+
         </div>
     </div>
 </section>
@@ -669,7 +752,7 @@
 
 <?php include "includes/footer.php"; ?>
 
-<script>
+<!-- <script>
     $("#checkoutForm").submit(function(e) {
         e.preventDefault();
 
@@ -697,4 +780,60 @@
             },
         });
     })
+</script> -->
+
+<script>
+    $(document).ready(function () {
+        $("#address_form,#address_form_modal").submit(function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            var formType = $(this).attr('id') === 'address_form_modal' ? 'updateAddress' : 'insertAddress';
+            formData.append('type', formType);
+            $.ajax({
+                url: 'addressApi.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function (response) {
+
+                    if (response.status === 'success') {
+                        alert(response.message);
+
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    console.log(xhr.responseText);
+                    alert("An error occurred during the request.");
+                }
+            });
+        });
+    });
+    function editAddress() {
+        var selectedOption = $('input[name="address"]:checked');
+
+        if (selectedOption.length > 0) {
+          var dataAddress = selectedOption.data('address');
+            var address = JSON.parse(atob(dataAddress));
+            $('#edit_first_name').val(address.first_name);
+            $('#edit_last_name').val(address.last_name);
+            $('#edit_phone').val(address.phone);
+            $('#edit_email').val(address.email);
+            $('#edit_country').val(address.country);
+            $('#edit_city').val(address.city);
+            $('#edit_street_address').val(address.street_address);
+            $('#edit_street_addressOpt').val(address.street_addressOpt);
+            $('#edit_dist').val(address.dist);
+            $('#edit_postcode').val(address.postcode);
+            $('#edit_id').val(address.id);
+        } else {
+          alert("Please select an option");
+        }
+    }
 </script>
