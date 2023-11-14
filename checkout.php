@@ -3,7 +3,7 @@
 <?php
 session_start();
 $userId = $_SESSION['id'];
-$sql = "SELECT * FROM `address` WHERE `user_id` = ?";
+$sql = "SELECT * FROM `address` WHERE `user_id` = ? LIMIT 3";
 $select = $conn->prepare($sql);
 $select->execute([$userId]);
 $carts = $select->fetchAll(PDO::FETCH_ASSOC);
