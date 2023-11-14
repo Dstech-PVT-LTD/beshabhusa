@@ -5,7 +5,7 @@ include 'includes/config.php';
 require('vendor/autoload.php');
 
 
-$sendgrid_api_key = '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';
+$sendgrid_api_key = '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';
 function sendEmail($from, $to, $fromUserName, $subject, $mailContent)
 {
     global $sendgrid_api_key;
@@ -17,7 +17,7 @@ function sendEmail($from, $to, $fromUserName, $subject, $mailContent)
     $email->setFrom($from, $fromUserName);
     $email->setSubject("$subject");
     $email->addTo($to, "User");
-    $email->addContent("text/plain", "$msg");
+    $email->addContent("text/plain", "hello");
     $email->addContent(
         "text/html",
         "$mailContent"
@@ -73,27 +73,27 @@ $paymentSystem = isset($_POST['payment_system']) ? $_POST['payment_system'] : ''
       $array = [$userId,$cart['product_id'],$orderId, $_POST['first_name'], $_POST['last_name'], $_POST['phone'], $_POST['email'], $_POST['country'], $_POST['city'], $_POST['street_address'], $_POST['street_addressop'], $_POST['dist'], $_POST['pin_code'],  $cart['quantity'], $product['price'],$paymentSystem];
       $insert = $conn->prepare($sql);
       $result1 = $insert->execute($array);
-   $delete = $conn->prepare('DELETE FROM `add_to_carts` WHERE `id`=?');
-   $result2 = $delete->execute([$cart['id']]);
       
     }
   }else{
     http_response_code(200);
-      echo json_encode(['status' => 'error', 'message' => 'Cart is empty']);
+    echo json_encode(['status' => 'error', 'message' => 'Cart is empty']);
   }
-
-
-
-    if ($result1) {
-            
-    $from = 'support@beshabhusa.in';
+  
+  
+  
+  if ($result1) {
+    
+    $from = 'support@beshabhusa.com';
     $to = $email;
     $fromUserName = 'beshabhusa';
-   $subject = 'Submission From localhero Contact Form';
-   $mailContent = 'userid: ur email ,password:phone number';
-   sendEmail($from, $to, $fromUserName, $subject, $mailContent);
-      http_response_code(200);
-      echo json_encode(['status' => 'success', 'message' => 'Successfully Check Out']);
+    $subject = 'Submission From beshabhusa Contact Form';
+    $mailContent = 'Successfully Check Out';
+    sendEmail($from, $to, $fromUserName, $subject, $mailContent);
+    http_response_code(200);
+    echo json_encode(['status' => 'success', 'message' => 'Successfully Check Out']);
+    $delete = $conn->prepare('DELETE FROM `add_to_carts` WHERE `id`=?');
+    $result2 = $delete->execute([$cart['id']]);
     } else {
       http_response_code(500);
       echo json_encode(['status' => 'error', 'message' => 'Check Out failed to add. Please try again.']);
