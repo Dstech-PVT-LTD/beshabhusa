@@ -243,5 +243,3 @@ function updateCatTotal() {
     $('#product_total_amt_cart_').text(totalSubTotal.toFixed(2));
 }
 </script>
-
-   </script>

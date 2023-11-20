@@ -2,7 +2,7 @@
 include 'includes/config.php';
 session_start();
 $user_id = $_SESSION['id'];
-
+$user_email = $_SESSION['usersEmail'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['address_id'] != '') {
@@ -33,6 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if($result){
                 http_response_code(200);
                 echo json_encode(['status' => '', 'message' => 'Order Successfully']);
+                $to = $user_email;
+                $subject = 'Submission From localhero Contact Form';
+                    $mailContent = 'your order sucessfully placed';
+                    sendEmail($from, $to, $fromUserName, $subject, $mailContent);
+                    
             }else{
                 http_response_code(400);
                 echo json_encode(['status' => 'error', 'message' => 'something went error']);
