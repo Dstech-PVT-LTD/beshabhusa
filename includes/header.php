@@ -7,9 +7,9 @@ $fetchCategoryStmt = $conn->prepare("SELECT * FROM `categories` ORDER BY `id` DE
 $fetchCategoryStmt->execute([]);
 
 
-$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= 1");
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
-$fetchServiceStmt->execute();
+$fetchServiceStmt->execute([$_SESSION['id']]);
 $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -388,7 +388,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                     $totalSubTotal += $subtotal;
 
                     ?>
-                    <div class="single-added-list" data-cart-item-id="<?php echo $row['id']; ?>">
+                    <div id="view_cart_product_<?php echo $row['id']?>" class="single-added-list" data-cart-item-id="<?php echo $row['id']; ?>">
                         <!-- single cart list left -->
                         <div class="single-item-left media align-items-center">
                             <img src="<?php echo $fetchProduct['image']; ?>" alt="" style="width:80px;height:80px;">
@@ -406,7 +406,8 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <!-- Single wish list right -->
                         <div class="single-item-right text-right">
-                            <a href="#"><img src="assets/img/icons/remove.svg" alt="" class="svg"></a>
+                            <a href="#" class="remove-product" data-product-id="<?php echo $row['id']; ?>">
+                            <img src="assets/img/icons/remove.svg" alt="" class="svg"></a>
                             <div class="product-quantity">
                                 <span onclick="minusQuantity(<?php echo $row['id']; ?>)"><img
                                         src="assets/img/icons/minus.svg" class="svg" alt=""></span>

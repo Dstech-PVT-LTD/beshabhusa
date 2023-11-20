@@ -1,10 +1,11 @@
 <?php include "./includes/header.php"; ?>
 
 <?php
+session_start();
+$user_id = $_SESSION['id'];
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
-$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= 1");
-
-$fetchServiceStmt->execute();
+$fetchServiceStmt->execute([$user_id]);
 $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -63,12 +64,13 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                         </tr>
                                         <!-- End of first table row -->
                                         <?php foreach($fetchService as $row) {
+                                            
                                             $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id`= ?");
 
                                             $fetchProductStmt->execute([$row['product_id']]);
                                             $fetchProduct = $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
 
-                                          ?>
+?>
                                         <!-- tr -->
                                         <tr class="woocommerce-cart-form__cart-item cart_item">
                                             <!-- product thumbnail -->
@@ -95,15 +97,15 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                             <!-- product quantity -->
                                             <td>
                                                 <div class="product-quantity">
-                                                    <span class="minus"><img src="assets/img/icons/minus.svg" class="svg" alt=""></span>
-                                                    <input type="text" value="<?php echo $quantity =$row ['quantity'];?>" class="product-quantity-list">
-                                                    <span class="plus"><img src="assets/img/icons/plus.svg" class="svg" alt=""></span>
+                                                    <span onclick="minusCartQuantity(<?php echo $row['id'] ?>)" ><img src="assets/img/icons/minus.svg" class="svg" alt=""></span>
+                                                    <input type="text" id="quantity_cart_product_<?php echo $row['id'] ?>" value="<?php echo $quantity =$row ['quantity'];?>">
+                                                    <span onclick="plusCartQuantity(<?php echo $row['id'] ?>)"><img src="assets/img/icons/plus.svg" class="svg" alt=""></span>
                                                 </div>
                                             </td>
                                             <!--End of product quantity -->
 
-                                            <td><?php echo $price = $fetchProduct['price'];?></td>
-                                            <td><span class="totalprice"><?php echo  $total = $quantity * $price;?></span></td>
+                                            <td id="cart_product_price_<?php echo $row['id'] ?>"><?php echo $price = $fetchProduct['price'];?></td>
+                                            <td><span class="totalprice" id="product_total_amt_cart_<?php echo $row['id'] ?>"><?php echo  $total = $quantity * $price;?></span></td>
 
                                             <!-- product remove -->
                                             <td class="product-remove">
@@ -149,17 +151,17 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                                                 Subtotal
                                                             </th>
                                                             <td>
-                                                                $100
+                                                            <span id="product_total_amt_cart_">₹<span id="subtotal_amount"><?php echo number_format($totalSubTotal, 2); ?></span></span>
                                                             </td>
                                                         </tr>
-                                                        <tr class="order-total">
+                                                        <!-- <tr class="order-total">
                                                             <th>
                                                                 Total
                                                             </th>
                                                             <td>
                                                                 <span class="woocommerce-Price-amount amount">$100</span>
                                                             </td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </tbody>
                                                 </table>
                                                 <div class="wc-proceed-to-checkout">
@@ -181,4 +183,65 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
    <!-- footer area -->
-   <?php include "./includes/footer.php";
+   <?php include "./includes/footer.php";?>
+   <script>
+    function updateProductQuantity(productId, newQuantity) {
+        $.ajax({
+            url:'update_cart.php',
+            method: 'POST',
+            data: {
+                productId: productId,
+                quantity: newQuantity
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.status === 'success') {
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred during the AJAX request.');
+            }
+        });
+    }
+
+    function minusCartQuantity(id) {
+    var quantity = parseInt($('#quantity_cart_product_' + id).val());
+    if (quantity > 1) {
+        var price = parseInt($('#cart_product_price_' + id).text());
+        quantity = quantity - 1;
+        $('#quantity_cart_product_' + id).val(quantity);
+        $('#product_total_amt_cart_' + id).text(quantity * price);
+        updateProductQuantity(id, quantity);
+        updateCatTotal();
+    }
+}
+function plusCartQuantity(id){
+    var quantity = parseInt($('#quantity_cart_product_' + id).val());
+    var price  = parseInt($('#cart_product_price_'+ id).text());
+    quantity = quantity+1;
+    $('#quantity_cart_product_' + id).val(quantity);
+    $('#product_total_amt_cart_'+ id).text(quantity * price);
+    updateProductQuantity(id,quantity);
+    updateCatTotal();
+}
+
+function updateCatTotal() {
+    var totalSubTotal = 0;
+    <?php
+    foreach($fetchService as $row) {
+        $price = $fetchProduct['price'];
+        $quantity = $row['quantity'];
+    ?>
+    var quantity = parseInt($('#quantity_cart_product_<?php echo $row['id']; ?>').val());
+    var price = parseInt($('#cart_product_price_<?php echo $row['id']; ?>').text());
+    var subTotal = quantity * price;
+    totalSubTotal += subTotal;
+    <?php } ?>
+    $('#product_total_amt_cart_').text(totalSubTotal.toFixed(2));
+}
+</script>
+
+   </script>
