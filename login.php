@@ -83,7 +83,7 @@ if (isset($_POST['login'])) {
 
                 $_SESSION['id'] = $loginResult['id'];
                 $_SESSION['adminName'] = $loginResult['first_name'] . ' ' . $loginResult['last_name'];
-                $_SESSION['usersEmail'] = $loginResult['email'];
+                $_SESSION['adminEmail'] = $loginResult['email'];
 
                 echo "<script>location.href = 'index.php';</script>";
                 header("Location:index.php");

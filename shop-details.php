@@ -2,6 +2,7 @@
 
 <?php
 extract($_POST);
+
 $id = base64_decode($_GET['id']);
 $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id` =? LIMIT 4");
 $fetchProductStmt->execute([$id]);
@@ -503,28 +504,27 @@ $fetchProductStmt->execute([$id]);
 
     </div>
 </section>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
 
             <div class="modal-body">
-                <!-- Modal content goes here -->
+                
                 <section class="pt-100 pb-100">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-8 col-lg-6">
-                                <!-- login register -->
+                             
                                 <div class="login-register-wrap text-center main-log-regi">
-                                    <!-- login register nav -->
+                                  
                                     <h3>Login</h3>
-                                    <!-- End of login register nav -->
-
-                                    <!-- login register content -->
+                                    
+                                  
                                     <div class="login-register-content tab-content">
 
                                         <div class="primary-form parsley-validate">
                                             <form method="post" id="loginform">
-                                                <!-- loging input -->
+                                                
                                                 <div class="email-input input-field">
                                                     <label>
                                                         <img src="assets/img/icons/email-icon.svg" class="svg" alt="">
@@ -538,7 +538,7 @@ $fetchProductStmt->execute([$id]);
                                                     </label>
                                                     <input type="password" placeholder='password' class="theme-input-style" name="password" required>
                                                 </div>
-                                                <!-- loging input -->
+                                               
                                                 <button type="login" class="btn btn-fill-type" name="login">log In</button>
                                             </form>
                                             <p>Don’t have an account,<a href="login.php">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
@@ -547,9 +547,9 @@ $fetchProductStmt->execute([$id]);
 
 
                                     </div>
-                                    <!-- End of login register content -->
+                                    
                                 </div>
-                                <!-- End of login register -->
+                               
                             </div>
                         </div>
                     </div>
@@ -558,41 +558,41 @@ $fetchProductStmt->execute([$id]);
 
         </div>
     </div>
-</div>
+</div> -->
 <!-- End of product details wrapper -->
 
 <?php include "includes/footer.php"; ?>
 <script>
     $(document).ready(function() {
-        $('#loginform').submit(function(event) {
-            event.preventDefault();
-            var email = $('input[name="email"]').val();
-            var password = $('input[name="password"]').val();
+    //     $('#loginform').submit(function(event) {
+    //         event.preventDefault();
+    //         var email = $('input[name="email"]').val();
+    //         var password = $('input[name="password"]').val();
 
-            $.ajax({
-                type: "POST",
-                url: "loginApi.php",
-                data: {
-                    email: email,
-                    password: password
-                },
-                dataType: 'JSON',
-                success: function(response) {
-                    if (response.success) {
-                        var userId = response.userId;
-                        addToCart(userId);
-                        window.location.href = response.redirect;
-                        qx
-                    } else {
-                        alert('Login failed. Please check your credentials.');
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                    alert('An error occurred while logging in.');
-                }
-            });
-        });
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "loginApi.php",
+    //             data: {
+    //                 email: email,
+    //                 password: password
+    //             },
+    //             dataType: 'JSON',
+    //             success: function(response) {
+    //                 if (response.success) {
+    //                     var userId = response.userId;
+    //                     addToCart(userId);
+    //                     window.location.href = response.redirect;
+                       
+    //                 } else {
+    //                     alert('Login failed. Please check your credentials.');
+    //                 }
+    //             },
+    //             error: function(error) {
+    //                 console.log(error);
+    //                 alert('An error occurred while logging in.');
+    //             }
+    //         });
+    //     });
 
         function addToCart(userId) {
             var size = $('input[name="equll_size"]:checked').val();
@@ -614,6 +614,7 @@ $fetchProductStmt->execute([$id]);
                     data: formData,
                     dataType: 'JSON',
                     success: function(response) {
+                        window.location.href = 'cart-list.php';
                         $("#responseMessage").text(response.message);
 
                     },
@@ -626,5 +627,8 @@ $fetchProductStmt->execute([$id]);
                 $("#responseMessage").text("Quantity must be 1 or more to add to cart.");
             }
         }
+        $('#addtocart').click(function() {
+        addToCart();
     });
+});
 </script>
