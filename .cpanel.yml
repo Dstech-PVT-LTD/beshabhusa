@@ -3,5 +3,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/beshabhusa/public_html/
     - echo "Copying files from /* to $DEPLOYPATH"
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R /home/beshabhusa/repositories/beshabhusa/* $DEPLOYPATH
     - echo "Deployment Completed"
