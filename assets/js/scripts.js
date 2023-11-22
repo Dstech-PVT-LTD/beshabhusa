@@ -98,13 +98,13 @@ We may release future updates so it will overwrite this file. it's better and sa
             });
 
             /*innear header*/
-            // $(document).ready(function(){
-            //     var headerheight = $('.inner-page-header').outerHeight();
-            //   if($('.page-title-inner') !== 0) 
-            //     $('.page-title-inner').css({
-            //             marginTop : headerheight
-            //         })
-            // })
+            $(document).ready(function(){
+                var headerheight = $('.inner-page-header').outerHeight();
+              if($('.page-title-inner') !== 0) 
+                $('.page-title-inner').css({
+                        marginTop : headerheight
+                    })
+            })
 
             /* 02: Background image
             ==============================================*/
