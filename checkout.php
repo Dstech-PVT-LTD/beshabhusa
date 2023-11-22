@@ -94,7 +94,7 @@ print_r($_SESSION);
 
                 <!-- Single wish list right -->
                 <div class="single-item-right text-right">
-                    <a href="#"><img src="assets/img/icons/remove.svg" alt="" class="svg"></a>
+                    <a href="#" class="remove-product" data-product-id="<?php echo $product['id']; ?>"><img src="assets/img/icons/remove.svg" alt="" class="svg"></a>
                     <a href="#" class="btn addto-cart-btn">Add To Cart</a>
                 </div>
                 <!-- End of Single wish list right -->
@@ -264,7 +264,7 @@ print_r($_SESSION);
 <!-- check out wrap -->
 <section class="pt-100 pb-100">
     <div class="container">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-6">
 
 <<<<<<< HEAD
@@ -624,7 +624,7 @@ print_r($_SESSION);
                 </div>
 
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-ml-5 col-lg-6 py-3 mt-5">
                 <div class="card">
@@ -793,7 +793,6 @@ print_r($_SESSION);
                                                     <th>Total</th>
                                                 </tr>
                                                 <?php
-                                                $userId = 1;
 
                                                 $sql = "SELECT * FROM `add_to_carts` WHERE `user_id` = ?";
                                                 $select = $conn->prepare($sql);
@@ -827,7 +826,7 @@ print_r($_SESSION);
                                     <!-- checkout-review-order -->
 
                                     <!-- check Shipping warp -->
-                                    <div class="check-shipping-wrap">
+                                    <!-- <div class="check-shipping-wrap">
                                         <div class="check-shipping-heading">
                                             <h5>Shipping</h5>
                                         </div>
@@ -854,7 +853,7 @@ print_r($_SESSION);
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> -->
                                     <!-- End of check Shipping warp -->
 
                                     <!-- payment system -->
@@ -1152,3 +1151,59 @@ print_r($_SESSION);
         }
     }
 </script>
+<script>
+$(document).ready(function() {
+    
+    $('.remove-product').on('click', function(e) {
+        e.preventDefault();
+        var productId = $(this).data('product-id');
+        $.ajax({
+            type: 'POST',
+            url: 'checkoutApi.php',
+            data: { productId: productId },
+            success: function(response) {
+                alert(response.message);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                alert("error");
+            }
+        });
+    });
+});
+</script>
+<script>
+        $(document).ready(function() {
+            $('#checkoutForm').submit(function(e) {
+                e.preventDefault();
+                var selectedOption = $('input[name="address"]:checked');
+
+                if (selectedOption.length > 0) {
+                    var dataAddress = selectedOption.data('address');
+                    var address = JSON.parse(atob(dataAddress));
+                    var address_id = address.id;
+                    $.ajax({
+                        type: 'POST',
+                        url: 'process_orderApi.php',
+                        data: {
+                            address_id: address_id 
+                        },
+                        dataType : 'JSON',
+                        success: function(response) {
+
+                            console.log(response);
+                           
+                            alert('Order placed successfully!');
+                        
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                }else{
+                    alert('select address');
+                }
+   
+            });
+        });
+    </script>
