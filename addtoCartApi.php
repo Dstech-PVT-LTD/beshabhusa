@@ -1,12 +1,13 @@
 <?php
 include 'includes/config.php';
-
+session_start();
+$user_id = $_SESSION['id'];
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['type'] == 'addtocart') {
   $size = $_POST['size'];
   $color = 'red'; 
   $productId = $_POST['productId'];
   $quantity = $_POST['quantity'];
-  $userid = 1;
+  $userid = $user_id;
 
   $fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id` = ? AND `product_id` = ?");
   $fetchServiceStmt->execute([$userid, $productId]);

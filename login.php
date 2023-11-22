@@ -81,7 +81,7 @@ if (isset($_POST['login'])) {
 
                 session_start();
 
-                $_SESSION['admin'] = $loginResult['id'];
+                $_SESSION['id'] = $loginResult['id'];
                 $_SESSION['adminName'] = $loginResult['first_name'] . ' ' . $loginResult['last_name'];
                 $_SESSION['adminEmail'] = $loginResult['email'];
 
@@ -134,7 +134,7 @@ if (isset($_POST['login'])) {
 <!-- End of page title -->
 
 <!-- logout register wrap -->
-<section class="pt-100 pb-100">
+<section class="pt-10 pb-10">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
@@ -171,7 +171,7 @@ if (isset($_POST['login'])) {
                                     <!-- loging input -->
                                     <button type="login" class="btn btn-fill-type" name="login">log In</button>
                                 </form>
-                                <p>Don’t have an account,<a href="#">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
+                                <p> Reset Password <a href="forgot_password.php">Forgot Password!</a></p>
                             </div>
                         </div>
 

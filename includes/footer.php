@@ -158,7 +158,7 @@
         <!-- back to top -->
     
         <!-- Modal -->
-        <div class="modal-window-container fancy">
+        <!-- <div class="modal-window-container fancy">
             <div class="modal-window-overlay"></div>
             <div class="modal-window-content">
                 <div class="modal-window-inner text-center">
@@ -177,7 +177,7 @@
                     </div>  
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End of main wrapper -->
     
         <!-- Modal quick view-->
@@ -422,14 +422,40 @@
        <script src="assets/js/custom.js"></script>
     
        <script>
+        
+    function updateProductQuantity(productId, newQuantity) {
+        $.ajax({
+            url:'update_cart.php',
+            method: 'POST',
+            data: {
+                productId: productId,
+                quantity: newQuantity
+            },
+            success: function(response) {
+                console.log(response);
+                var data = JSON.parse(response);
+                if (data.status === 'success') {
+                    // alert(data.message);
+                } else {
+                    // alert(data.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred during the AJAX request.');
+            }
+        });
+    }
 
-function minusQuantity(id){
+    function minusQuantity(id) {
     var quantity = parseInt($('#quantity_' + id).val());
-    var price  = parseInt($('#price_'+ id).text());
-    quantity = quantity-1;
-    $('#quantity_' + id).val(quantity);
-    $('#product_total_amt_'+ id).text(quantity * price);
-    updateTotal();
+    if (quantity > 1) {
+        var price = parseInt($('#price_' + id).text());
+        quantity = quantity - 1;
+        $('#quantity_' + id).val(quantity);
+        $('#product_total_amt_' + id).text(quantity * price);
+        updateProductQuantity(id, quantity);
+        updateTotal();
+    }
 }
 function plusQuantity(id){
     var quantity = parseInt($('#quantity_' + id).val());
@@ -437,6 +463,7 @@ function plusQuantity(id){
     quantity = quantity+1;
     $('#quantity_' + id).val(quantity);
     $('#product_total_amt_'+ id).text(quantity * price);
+    updateProductQuantity(id,quantity);
     updateTotal();
 }
 
@@ -456,6 +483,33 @@ function updateTotal() {
 }
 </script>
 
+<script>
+$(document).ready(function() {
+    $('.remove-product').click(function(e) {
+        e.preventDefault();
+        var productId = $(this).data('product-id');
 
-    </body>
-    </html>
+        
+        $.ajax({
+            type: 'POST',
+            url: 'update_cart.php',
+            data: { product_id: productId },
+            success: function(response) {
+              
+                console.log(response);
+
+              
+                $('#view_cart_product_' + productId).remove();
+                $('#product_total_amt').text(0.00);
+            },
+            error: function(xhr, status, error) {
+                
+                console.error('Error:', error);
+            }
+        });
+    });
+
+});
+</script>
+</body>
+</html>

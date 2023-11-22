@@ -1,8 +1,8 @@
-
 <?php include "includes/header.php"; ?>
 
 <?php
 extract($_POST);
+
 $id = base64_decode($_GET['id']);
 $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id` =? LIMIT 4");
 $fetchProductStmt->execute([$id]);
@@ -106,13 +106,13 @@ $fetchProductStmt->execute([$id]);
                         <!-- product title -->
                         <div class="product-title">
                             <h2><a href="shop-details.php"><?php echo $row['name']; ?></a></h2>
-                            <input type="hidden" id="pid" value="<?php echo  base64_decode($id) ?>" >
+                            <input type="hidden" id="pid" value="<?php echo  base64_decode($id) ?>">
                         </div>
                         <!-- end of product title -->
 
                         <div class="product-price">
-                            <h3 class="new-price"><?php echo "Price:&#8377;". $row['price']; ?></h3>
-                            <h5 class="old-price"><?php echo "Price:&#8377;". $row['mrp']; ?></h5>
+                            <h3 class="new-price"><?php echo "Price:&#8377;" . $row['price']; ?></h3>
+                            <h5 class="old-price"><?php echo "Price:&#8377;" . $row['mrp']; ?></h5>
                         </div>
 
                         <div class="product-description">
@@ -136,7 +136,7 @@ $fetchProductStmt->execute([$id]);
                                         </li>
                                         <li>
                                             <input id="small_size" type="radio" style="display: none;" name="equll_size" value="s">
-                                            <label for="small_size"><a  class="product-size"><span>S</span></a></label>
+                                            <label for="small_size"><a class="product-size"><span>S</span></a></label>
                                         </li>
                                         <!-- <li><a href="#" class=" active product-size"><span>L</span></a></li>
                                         <li><a href="#" class=" product-size"><span>M</span></a></li>
@@ -155,7 +155,7 @@ $fetchProductStmt->execute([$id]);
                                     <span class="list-heading">quantity:</span>
                                     <div class="product-quantity">
                                         <span class="minus"><img src="assets/img/icons/minus.svg" class="svg" alt=""></span>
-                                        <input id="quantity1" type="text" value="0" class="product-quantity-list product-size">
+                                        <input id="quantity1" type="text" value="1" class="product-quantity-list product-size">
                                         <span class="plus"><img src="assets/img/icons/plus.svg" class="svg" alt=""></span>
                                     </div>
                                 </li>
@@ -171,7 +171,7 @@ $fetchProductStmt->execute([$id]);
 
                         <!-- product details btns -->
                         <div class="product-details-btns">
-                            <div class="addto-bag-btn" id="addtocarts" onclick="addToCarts()">
+                            <div class="addto-bag-btn" id="addtocart" <?php echo isset($_SESSION['users']) ? 'onclick="addToCart()"' : '' ?>>
                                 <a type="button" class="btn btn-fill-type" data-toggle="modal" data-target="#myModal">
                                     <span><img src="assets/img/icons/add-bag.svg" alt="" class="svg"></span><span class="d-none d-lg-block mr-0">Add To Cart</span>
                                 </a>
@@ -412,8 +412,8 @@ $fetchProductStmt->execute([$id]);
             $fetchCategoryReleted->execute([$cid]);
             $sl = 1;
             while ($row = $fetchCategoryReleted->fetch()) {
+                $dll = base64_encode($row["id"]);
 
-                
             ?>
                 <div class="col-sm-6 col-12 col-lg-3">
 
@@ -423,7 +423,7 @@ $fetchProductStmt->execute([$id]);
                             <div class="product-thumb">
                                 <!-- Product Image -->
                                 <div class="product-image">
-                                    <a href="#">
+                                    <a href="shop-details.php?id=<?php echo $dll ?>">
                                         <img class='normal-state' data-rjs="2" src="<?php echo $row['image']; ?>" alt="service image <?php echo $sl; ?>">
                                         <img class='hover-state' data-rjs="2" src="assets/img/product/product-1b.jpg" alt="">
                                     </a>
@@ -434,7 +434,7 @@ $fetchProductStmt->execute([$id]);
                                 <div class="product-buttons">
                                     <div class="quick-btn">
                                         <div class="quick-icon-btn">
-                                            <a href="#" class="quick_view">
+                                            <a href="shop-details.php?id=<?php echo $dll ?>" class="quick_view">
                                                 <span class="product-icon"><i class="fa fa-eye" aria-hidden="true"></i></span>
                                                 <span class="icon-title">Quick View</span>
                                             </a>
@@ -472,7 +472,7 @@ $fetchProductStmt->execute([$id]);
 
                                 <!-- product title -->
                                 <div class="product-title">
-                                    <h4><a  href="shop-details.php?id=<?php echo $id; ?>"><?php echo $row['name']; ?></a></h4>
+                                    <h4><a href="shop-details.php?id=<?php echo $id; ?>"><?php echo $row['name']; ?></a></h4>
                                 </div>
                                 <!-- end of product title -->
                             </div>
@@ -480,7 +480,7 @@ $fetchProductStmt->execute([$id]);
                             <!-- product info -->
                             <div class="product-info">
                                 <div class="product-price">
-                                    <h5><?php echo "Price:&#8377;".$row['price']; ?></h5>
+                                    <h5><?php echo "Price:&#8377;" . $row['price']; ?></h5>
                                 </div>
                                 <div class="product-rating">
                                     <div class="star-rating">
@@ -504,95 +504,131 @@ $fetchProductStmt->execute([$id]);
 
     </div>
 </section>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
-           
+
             <div class="modal-body">
-                <!-- Modal content goes here -->
+                
                 <section class="pt-100 pb-100">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <!-- login register -->
-                <div class="login-register-wrap text-center main-log-regi">
-                    <!-- login register nav -->
-                   <h3>Login</h3>
-                    <!-- End of login register nav -->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8 col-lg-6">
+                             
+                                <div class="login-register-wrap text-center main-log-regi">
+                                  
+                                    <h3>Login</h3>
+                                    
+                                  
+                                    <div class="login-register-content tab-content">
 
-                    <!-- login register content -->
-                    <div class="login-register-content tab-content">
-                       
-                            <div class="primary-form parsley-validate">
-                                <form method="post">
-                                    <!-- loging input -->
-                                    <div class="email-input input-field">
-                                        <label>
-                                            <img src="assets/img/icons/email-icon.svg" class="svg" alt="">
-                                        </label>
-                                        <input type="email" placeholder='email' class="theme-input-style" name="email" required>
-                                    </div>
+                                        <div class="primary-form parsley-validate">
+                                            <form method="post" id="loginform">
+                                                
+                                                <div class="email-input input-field">
+                                                    <label>
+                                                        <img src="assets/img/icons/email-icon.svg" class="svg" alt="">
+                                                    </label>
+                                                    <input type="email" placeholder='email' class="theme-input-style" name="email" required>
+                                                </div>
 
-                                    <div class="password-input input-field">
-                                        <label>
-                                            <img src="assets/img/icons/regi-icon.svg" class="svg" alt="">
-                                        </label>
-                                        <input type="password" placeholder='password' class="theme-input-style" name="password" required>
+                                                <div class="password-input input-field">
+                                                    <label>
+                                                        <img src="assets/img/icons/regi-icon.svg" class="svg" alt="">
+                                                    </label>
+                                                    <input type="password" placeholder='password' class="theme-input-style" name="password" required>
+                                                </div>
+                                               
+                                                <button type="login" class="btn btn-fill-type" name="login">log In</button>
+                                            </form>
+                                            <p>Don’t have an account,<a href="login.php">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
+                                        </div>
+
+
+
                                     </div>
-                                    <!-- loging input -->
-                                    <button type="login" class="btn btn-fill-type" name="login">log In</button>
-                                </form>
-                                <p>Don’t have an account,<a href="#">register now!</a> | <a href="forgot_password.php">forgot password!</a></p>
+                                    
+                                </div>
+                               
                             </div>
-                        
-
-                       
+                        </div>
                     </div>
-                    <!-- End of login register content -->
-                </div>
-                <!-- End of login register -->
+                </section>
             </div>
+
         </div>
     </div>
-</section>
-            </div>
-          
-        </div>
-    </div>
-</div>
+</div> -->
 <!-- End of product details wrapper -->
 
 <?php include "includes/footer.php"; ?>
 <script>
-    
-    function addToCarts() {
-        var size = $('input[name="equll_size"]:checked').val();
-        var productId = $('#pid').val();
-        var quantity = $('#quantity1').val();
+    $(document).ready(function() {
+    //     $('#loginform').submit(function(event) {
+    //         event.preventDefault();
+    //         var email = $('input[name="email"]').val();
+    //         var password = $('input[name="password"]').val();
 
-        if (parseInt(quantity) > 0) {
-            var formData = {
-                size: size,
-                productId: productId,
-                quantity: quantity,
-                type: "addtocart"
-            };
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "loginApi.php",
+    //             data: {
+    //                 email: email,
+    //                 password: password
+    //             },
+    //             dataType: 'JSON',
+    //             success: function(response) {
+    //                 if (response.success) {
+    //                     var userId = response.userId;
+    //                     addToCart(userId);
+    //                     window.location.href = response.redirect;
+                       
+    //                 } else {
+    //                     alert('Login failed. Please check your credentials.');
+    //                 }
+    //             },
+    //             error: function(error) {
+    //                 console.log(error);
+    //                 alert('An error occurred while logging in.');
+    //             }
+    //         });
+    //     });
 
-            $.ajax({
-                type: "POST",
-                url: "addtoCartApi.php",
-                data: formData,
-                dataType: 'JSON',
-                success: function (response) {
-                    $("#responseMessage").text(response);
-                },
-                error: function (error) {
-                    console.log(error);
-                    $("#responseMessage").text("An error occurred.");
-                }
-            });
-        } else {
-            $("#responseMessage").text("Quantity must be 1 to add to cart.");
+        function addToCart(userId) {
+            var size = $('input[name="equll_size"]:checked').val();
+            var productId = $('#pid').val();
+            var quantity = $('#quantity1').val();
+
+            if (parseInt(quantity) > 0) {
+                var formData = {
+                    size: size,
+                    productId: productId,
+                    quantity: quantity,
+                    userId: userId,
+                    type: "addtocart"
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "addtoCartApi.php",
+                    data: formData,
+                    dataType: 'JSON',
+                    success: function(response) {
+                        window.location.href = 'cart-list.php';
+                        $("#responseMessage").text(response.message);
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        $("#responseMessage").text("An error occurred.");
+                    }
+                });
+            } else {
+                $("#responseMessage").text("Quantity must be 1 or more to add to cart.");
+            }
         }
-    }
+        $('#addtocart').click(function() {
+        addToCart();
+    });
+});
 </script>
