@@ -17,7 +17,7 @@ $fetchServiceStmt->execute();
                     <div class="page-title-wrap">
                         <div class="page-title-heading"><h1 class="h2">Who We Are<span>About Us</span></h1></div>
                         <ul class="list-unstyled mb-0">
-                            <li><a href="index.html">Home page</a></li>
+                            <li><a href="index.html">Home</a></li>
                             <li class="active"><a href="#">About Us</a></li>
                         </ul>
                     </div>

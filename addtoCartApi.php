@@ -4,7 +4,7 @@ session_start();
 $user_id = $_SESSION['id'];
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['type'] == 'addtocart') {
   $size = $_POST['size'];
-  $color = 'red'; 
+  $color = $_POST['color'];
   $productId = $_POST['productId'];
   $quantity = $_POST['quantity'];
   $userid = $user_id;
