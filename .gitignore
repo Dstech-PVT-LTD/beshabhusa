@@ -1,3 +1,5 @@
+.vscode
 .git
 images
 includes/dbconfig.php
+norda/includes/dbconfig.php
