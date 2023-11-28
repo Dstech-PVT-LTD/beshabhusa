@@ -24,6 +24,13 @@
                 <li>
                     <a href="addCategories.php" class="waves-effect"><i class="mdi mdi-home-analytics"></i><span>Manage Category</span></a>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="mdi mdi-diamond-stone"></i><span>Manage Orders</span></a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="manageOrder.php">View Orders</a></li>
+                        <li><a href="pendingOrder.php">Pending Orders</a></li>
+                    </ul>
+                </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="mdi mdi-diamond-stone"></i><span>Manage Products</span></a>
