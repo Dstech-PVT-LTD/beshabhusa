@@ -1,5 +1,16 @@
 <?php
 include "./includes/config.php";
+session_start();
+
+$fetchCategoryStmt = $conn->prepare("SELECT * FROM `categories` ORDER BY `id` DESC");
+
+$fetchCategoryStmt->execute([]);
+
+
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
+
+$fetchServiceStmt->execute([$_SESSION['id']]);
+$fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -353,34 +364,35 @@ include "./includes/config.php";
                 <a class="cart-close" href="#"><i class="icon_close"></i></a>
                 <div class="cart-content">
                     <h3>Shopping Cart</h3>
+                    <?php foreach ($fetchService as $row) {
+                    $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id`= ?");
+
+                    $fetchProductStmt->execute([$row['product_id']]);
+                    $fetchProduct = $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
+                    $price = $fetchProduct['price'];
+                    $quantity = $row['quantity'];
+                    $subtotal = $price * $quantity;
+                    $totalSubTotal += $subtotal;
+
+                    ?>
                     <ul>
                         <li class="single-product-cart">
                             <div class="cart-img">
                                 <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
                             </div>
                             <div class="cart-title">
-                                <h4><a href="#">Simple Black T-Shirt</a></h4>
-                                <span> 1 × $49.00	</span>
+                                <h4><a href="#"><?php echo $fetchProduct['name']; ?></a></h4>
+                                <span><?php echo $quantity = $row['quantity']; ?> × <?php echo $price = $fetchProduct['price']; ?>	</span>
                             </div>
                             <div class="cart-delete">
                                 <a href="#">×</a>
                             </div>
                         </li>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Norda Backpack</a></h4>
-                                <span> 1 × $49.00	</span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
+                        
                     </ul>
+                    <?php } ?>
                     <div class="cart-total">
-                        <h4>Subtotal: <span>$170.00</span></h4>
+                        <h4>Subtotal: <span><?php echo $subtotal = $price * $quantity; ?></span></h4>
                     </div>
                     <div class="cart-checkout-btn">
                         <a class="btn-hover cart-btn-style" href="cart.php">view cart</a>
