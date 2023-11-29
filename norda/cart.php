@@ -1,4 +1,14 @@
 <?php include "./includes/header.php"; ?>
+<?php
+// session_start();
+// $user_id = $_SESSION['id'];
+$user_id = 4;
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
+
+$fetchServiceStmt->execute([$user_id]);
+$fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
         <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
@@ -28,56 +38,35 @@
                                             <th>Subtotal</th>
                                             <th>action</th>
                                         </tr>
+                                        <?php foreach($fetchService as $row) {
+                                            
+                                            $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id`= ?");
+
+                                            $fetchProductStmt->execute([$row['product_id']]);
+                                            $fetchProduct = $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
+
+?>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="product-thumbnail">
                                                 <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
                                             </td>
-                                            <td class="product-name"><a href="#">Simple Black T-Shirt</a></td>
-                                            <td class="product-price-cart"><span class="amount">$260.00</span></td>
+                                            <td class="product-name"><a href="#"><?php echo $fetchProduct['name'];?></a></td>
+                                            <td class="product-price-cart"><span class="amount"><?php echo $price = $fetchProduct['price'];?></span></td>
                                             <td class="product-quantity pro-details-quality">
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="<?php echo $quantity =$row ['quantity'];?>">
                                                 </div>
                                             </td>
-                                            <td class="product-subtotal">$110.00</td>
+                                            
+                                            <td class="product-subtotal"><?php echo  $total = $quantity * $price;?></td>
                                             <td class="product-remove">
                                                 <a href="#"><i class="icon_close"></i></a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="product-thumbnail">
-                                                <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
-                                            </td>
-                                            <td class="product-name"><a href="#">Norda Simple Backpack</a></td>
-                                            <td class="product-price-cart"><span class="amount">$150.00</span></td>
-                                            <td class="product-quantity pro-details-quality">
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
-                                                </div>
-                                            </td>
-                                            <td class="product-subtotal">$150.00</td>
-                                            <td class="product-remove">
-                                                <a href="#"><i class="icon_close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-thumbnail">
-                                                <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
-                                            </td>
-                                            <td class="product-name"><a href="#">Simple Black T-Shirt </a></td>
-                                            <td class="product-price-cart"><span class="amount">$170.00</span></td>
-                                            <td class="product-quantity pro-details-quality">
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-                                                </div>
-                                            </td>
-                                            <td class="product-subtotal">$170.00</td>
-                                            <td class="product-remove">
-                                                <a href="#"><i class="icon_close"></i></a>
-                                            </td>
-                                        </tr>
+                                        
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -158,7 +147,7 @@
                                     <div class="title-wrap">
                                         <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                                     </div>
-                                    <h5>Total products <span>$260.00</span></h5>
+                                    <h5>Total products <span><?php echo  $total = $quantity * $price;?></span></h5>
                                     <div class="total-shipping">
                                         <h5>Total shipping</h5>
                                         <ul>
@@ -166,7 +155,7 @@
                                             <li><input type="checkbox"> Express <span>$30.00</span></li>
                                         </ul>
                                     </div>
-                                    <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
+                                    <h4 class="grand-totall-title">Grand Total <span><?php echo  $total = $quantity * $price;?></span></h4>
                                     <a href="#">Proceed to Checkout</a>
                                 </div>
                             </div>
@@ -204,3 +193,62 @@
         </div>
 
 <?php include "./includes/footer.php"; ?>
+<script>
+    function updateProductQuantity(productId, newQuantity) {
+        $.ajax({
+            url:'update_cart.php',
+            method: 'POST',
+            data: {
+                productId: productId,
+                quantity: newQuantity
+            },
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.status === 'success') {
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function() {
+                alert('An error occurred during the AJAX request.');
+            }
+        });
+    }
+
+    function minusCartQuantity(id) {
+    var quantity = parseInt($('#quantity_cart_product_' + id).val());
+    if (quantity > 1) {
+        var price = parseInt($('#cart_product_price_' + id).text());
+        quantity = quantity - 1;
+        $('#quantity_cart_product_' + id).val(quantity);
+        $('#product_total_amt_cart_' + id).text(quantity * price);
+        updateProductQuantity(id, quantity);
+        updateCatTotal();
+    }
+}
+function plusCartQuantity(id){
+    var quantity = parseInt($('#quantity_cart_product_' + id).val());
+    var price  = parseInt($('#cart_product_price_'+ id).text());
+    quantity = quantity+1;
+    $('#quantity_cart_product_' + id).val(quantity);
+    $('#product_total_amt_cart_'+ id).text(quantity * price);
+    updateProductQuantity(id,quantity);
+    updateCatTotal();
+}
+
+function updateCatTotal() {
+    var totalSubTotal = 0;
+    <?php
+    foreach($fetchService as $row) {
+        $price = $fetchProduct['price'];
+        $quantity = $row['quantity'];
+    ?>
+    var quantity = parseInt($('#quantity_cart_product_<?php echo $row['id']; ?>').val());
+    var price = parseInt($('#cart_product_price_<?php echo $row['id']; ?>').text());
+    var subTotal = quantity * price;
+    totalSubTotal += subTotal;
+    <?php } ?>
+    $('#product_total_amt_cart_').text(totalSubTotal.toFixed(2));
+}
+</script>
