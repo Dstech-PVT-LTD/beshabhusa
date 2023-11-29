@@ -1,8 +1,9 @@
 <?php include "./includes/header.php"; ?>
 
 <?php
-session_start();
-$user_id = $_SESSION['id'];
+// session_start();
+// $user_id = $_SESSION['id'];
+$user_id=5;
 $fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
 $fetchServiceStmt->execute([$user_id]);
@@ -52,7 +53,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                             <td class="product-thumbnail">
                                                 <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
                                             </td>
-                                            <td class="product-name"><a href="#">Simple Black T-Shirt</a></td>
+                                            <td class="product-name"><a href="#"><?php echo   $fetchProduct['name']; ?></a></td>
                                             <td class="product-price-cart"><span class="amount">$260.00</span></td>
                                             <td class="product-quantity pro-details-quality">
                                                 <div class="cart-plus-minus">

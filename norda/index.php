@@ -70,7 +70,7 @@ $listProducts = $selectProduct->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="single-product-wrap mb-35">
                                     <div class="product-img product-img-zoom mb-15">
                                         <a href="product-details.php?id=<?php echo $id ?>">
-                                            <img src="<?php echo $listProduct['image'] ; ?>" alt="" style="max-height:850px ;">
+                                            <img src="../<?php echo $listProduct['image'] ; ?>" alt="" style="max-height:850px ;">
                                         </a>
                                         <div class="product-action-2 tooltip-style-2">
                                             <button title="Wishlist"><i class="icon-heart"></i></button>

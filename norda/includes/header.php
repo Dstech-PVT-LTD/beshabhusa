@@ -1,8 +1,23 @@
 <?php
-include "./includes/config.php";
+include "includes/config.php";
+session_start();
+$id = 5;
+$fetchCategoryStmt = $conn->prepare("SELECT * FROM `categories` ORDER BY `id` DESC");
+
+$fetchCategoryStmt->execute([]);
+
+
+$fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
+
+$fetchServiceStmt->execute([$id]);
+$fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
+
 <!doctype html>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -250,7 +265,7 @@ include "./includes/config.php";
                         <nav>
                             <ul class="mobile-menu">
                                 <li class="menu-item-has-children"><a href="index.php">Home</a>
-                                    
+
                                 </li>
                                 <li class="menu-item-has-children "><a href="#">shop</a>
                                     <ul class="dropdown">
@@ -325,7 +340,7 @@ include "./includes/config.php";
                                 <ul>
                                     <li><a href="#">USD</a></li>
                                     <li><a href="#">EUR</a></li>
-                                    <li><a href="#">Real</a></li>
+                                    <li><a href="#">Real</a></li>cart.php
                                     <li><a href="#">BDT</a></li>
                                 </ul>
                             </div>
@@ -354,33 +369,39 @@ include "./includes/config.php";
                 <div class="cart-content">
                     <h3>Shopping Cart</h3>
                     <ul>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Simple Black T-Shirt</a></h4>
-                                <span> 1 × $49.00	</span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Norda Backpack</a></h4>
-                                <span> 1 × $49.00	</span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
+                        <?php
+                        $subtotal = 0;
+                        foreach ($fetchService as $product) {
+                            $productId = $product['product_id'];
+
+                            // Fetch product details from the 'product' table
+                            $product1 = $conn->prepare("SELECT * FROM `products` WHERE `id`=?");
+                            $product1->execute([$productId]);
+                            $productDetail = $product1->fetch(PDO::FETCH_ASSOC);
+                            $quantity = $product['quantity'];
+                            $price = $productDetail['price'];
+                            $productSubtotal = $quantity * $price;
+                            $subtotal += $productSubtotal;
+                        ?>
+                            <li class="single-product-cart">
+                                <div class="cart-img">
+                                    <a href="#"><img src="../<?php echo $productDetail['image']; ?>" alt=""></a>
+                                </div>
+                                <div class="cart-title">
+                                    <h4><a href="#"><?php echo $productDetail['name']; ?></a></h4>
+                                    <!-- You might want to display the actual quantity and price from the database -->
+                                    <span><?php echo $quantity; ?> × &#x20B9;<?php echo  $price; ?></span>
+
+                                </div>
+                                <div class="cart-delete">
+                                    <button class="delete-btn" data-product-id="<?php echo $productId; ?>">×</button>
+                                </div>
+
+                            </li>
+                        <?php } ?>
                     </ul>
                     <div class="cart-total">
-                        <h4>Subtotal: <span>$170.00</span></h4>
+                        <h4>Subtotal: <span>&#x20B9;<?php echo number_format($subtotal, 2); ?></span></h4>
                     </div>
                     <div class="cart-checkout-btn">
                         <a class="btn-hover cart-btn-style" href="cart.php">view cart</a>

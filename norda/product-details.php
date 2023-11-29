@@ -1,7 +1,6 @@
 <?php include "./includes/header.php"; ?>
 <?php
 
-
 $id = base64_decode($_GET['id']);
 
 $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id` =? ");
@@ -9,7 +8,19 @@ $fetchProductStmt->execute([$id]);
 $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
+<style>
+        #colorChangeDiv li a label{
+            width: 100%;
+        }
+      #colorChangeDiv li a input[type="radio"]:checked +label {
+        
 
+            background-color: #ff2f2f; 
+            color: #fff; 
+            width: 100%;
+        
+  }
+    </style>
 <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
@@ -30,8 +41,8 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                             <div class="product-dec-right pro-dec-big-img-slider">
                                 <div class="easyzoom-style">
                                     <div class="easyzoom easyzoom--overlay">
-                                        <a href="<?php echo $product['image'];?>">
-                                            <img src="<?php echo $product['image'];?>" alt="">
+                                        <a href="../<?php echo $product['image'];?>">
+                                            <img src="../<?php echo $product['image'];?>" alt="">
                                         </a>
                                     </div>
                                     <a class="easyzoom-pop-up img-popup" href="assets/images/product-details/b-large-1.jpg"><i class="icon-size-fullscreen"></i></a>
@@ -121,29 +132,29 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                                 <div class="pro-details-color-content">
                                     <ul>
                                         <li>
-                                                <a class="dolly" href="#"> <input class="form-check-input d-none" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                <a class="dolly" href="#"> <input class="form-check-input d-none" value="d0lly" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                                                 <label class="form-check-label" for="flexRadioDefault1">dolly</label></a>
                                         </li>
 
                                         <li>
-                                               <a class="azalea" href="#"> <input class="form-check-input d-none" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                               <a class="azalea" href="#"> <input class="form-check-input d-none" value="white" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
                                                 <label class="form-check-label" for="flexRadioDefault2">white</label></a>
                                         </li>
 
                                         <li>
-                                               <a class="azalea" href="#"><input class="form-check-input d-none" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+                                               <a class="azalea" href="#"><input class="form-check-input d-none" value="azalea" type="radio" name="flexRadioDefault" id="flexRadioDefault3" >
                                                 <label class="form-check-label" for="flexRadioDefault3"> azalea</label></a>
                                         </li>
                                         <li>
-                                            <a class="peach-orange" href="#"><input class="form-check-input d-none" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
+                                            <a class="peach-orange" href="#"><input class="form-check-input d-none"  value="Orange" type="radio" name="flexRadioDefault" id="flexRadioDefault4" >
                                                 <label class="form-check-label" for="flexRadioDefault4"> Orange</label></a>
                                         </li>
                                         <li>
-                                            <a class="mona-lisa active" href="#"><input class="form-check-input d-none" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked>
+                                            <a class="mona-lisa active" href="#"><input class="form-check-input d-none" value="lisa" type="radio" name="flexRadioDefault" id="flexRadioDefault5" >
                                                 <label class="form-check-label" for="flexRadioDefault5"> lisa</label></a>
                                             </li>
                                         <li>
-                                            <a class="cupid" href="#"><input class="form-check-input d-none" type="radio" name="flexRadioDefault" id="flexRadioDefault6" checked>
+                                            <a class="cupid" href="#"><input class="form-check-input d-none " value="cupid" type="radio" name="flexRadioDefault" id="flexRadioDefault6" >
                                                 <label class="form-check-label" for="flexRadioDefault6"> cupid</label></a>
                                         </li>
                                     </ul>
@@ -153,29 +164,18 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                             <div class="pro-details-size">
                                 <span>Size:</span>
                                 <div class="pro-details-size-content">
-                                    <ul>
-                                        <li>
-                                        <input id="XS_size" type="radio" style="display: none;" name="equll_size" value="XS" checked="checked">
-                                            <label for="XS_size"><a class="product-size"><span>XS</span></a></label>
-                                    
-                                    </li>
-                                        <li>
-                                    <input id="S_size" type="radio" style="display: none;" name="equll_size" value="S">
-                                            <label for="S_size"><a class="product-size"><span>S</span></a></label>
-
-                                    </li>
-                                        <li>
-                                        <input id="M_size" type="radio" style="display: none;" name="equll_size" value="M">
-                                            <label for="M_size"><a class="product-size"><span>M</span></a></label>
-                                    </li>
-                                        <li>
-                                        <input id="L_size" type="radio" style="display: none;" name="equll_size" value="L">
-                                            <label for="L_size"><a class="product-size"><span>L</span></a></label>
-                                    </li>
-                                        <li>
-                                        <input id="XL_size" type="radio" style="display: none;" name="equll_size" value="XL">
-                                            <label for="XL_size"><a class="product-size"><span>XL</span></a></label>
-                                    </li>
+                                    <ul id="colorChangeDiv">
+                                        <li><a><input type="radio" id="XS-size" name="size" value="XS"  class="d-none" checked>
+                                                <label for="XS-size">XS</label></a>
+                                            </li>
+                                        <li><a><input type="radio" id="S-size" name="size" value="S" class="d-none" >
+                                            <label for="S-size">S</label></a></li>
+                                        <li><a><input type="radio" id="M-size" name="size" value="M" class="d-none" >
+                                            <label for="M-size">M</label></a></li>
+                                        <li><a><input type="radio" id="L-size" name="size" value="L" class="d-none" >
+                                            <label for="L-size">L</label></a></li>
+                                        <li><a><input type="radio" id="XL-size" name="size"  value="XL"class="d-none" >
+                                            <label for="XL-size">XL</label></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                                 </ul>
                             </div>
                             <div class="pro-details-action-wrap">
-                            <div class="pro-details-add-to-cart">
+                            <div class="pro-details-add-to-cart"  id="addtocart" <?php echo isset($_SESSION['id']) ? 'onclick="addToCart()"' : '' ?>>
                                     <a title="Add to Cart" data-bs-toggle="modal" data-bs-target="#exampleModal">Add To Cart </a>
                                 </div>
                                 <div class="pro-details-action">
@@ -397,7 +397,7 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                         <div class="single-product-wrap">
                             <div class="product-img product-img-zoom mb-15">
                                 <a  href="product-details.php?id=<?php echo $dll;?>">
-                                    <img src="<?php echo $row['image']; ?>" alt="">
+                                    <img src="../<?php echo $row['image']; ?>" alt="">
                                 </a>
                                 <div class="product-action-2 tooltip-style-2">
                                     <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -754,15 +754,14 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
             });
         });
         function addToCart(userId) {
-            var size = $('input[name="equll_size"]:checked').val();
-            var color = $('input[name="color"]:checked').val();
+            var size = $('input[name="size"]:checked').val();
+            var color = $('input[name="flexRadioDefault"]:checked').val();
             var productId = $('#pid').val();
             var quantity = $('#quantity').val();
 
             if (parseInt(quantity) > 0) {
                 var formData = {
                     size: size,
-
                     productId: productId,
                     quantity: quantity,
                     userId: userId,
@@ -777,7 +776,7 @@ $product= $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                     dataType: 'JSON',
                     success: function(response) {
                         console.log(response);
-                        // window.location.href = 'cart.php';
+                        window.location.href = 'cart.php';
                         $("#responseMessage").text(response.message);
 
                     },
