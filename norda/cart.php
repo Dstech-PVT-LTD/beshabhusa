@@ -1,7 +1,8 @@
 <?php include "./includes/header.php"; ?>
 <?php
-session_start();
-$user_id = $_SESSION['id'];
+// session_start();
+// $user_id = $_SESSION['id'];
+$user_id = 4;
 $fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
 $fetchServiceStmt->execute([$user_id]);
@@ -64,7 +65,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                             </span>
                                         </td>
                                         <td class="product-quantity pro-details-quality">
-                                            <div class="cart-plus-minus">
+                                            <div class="cart-plus-minus" data-product-id="<?php echo $row['id']; ?>">
                                                 <input class="cart-plus-minus-box" type="text" name="qtybutton"
                                                     value="<?php echo $quantity; ?>"
                                                     id="quantity_cart_product_<?php echo $row['id']; ?>">
@@ -96,7 +97,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </form>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
+                    <!-- <div class="col-lg-4 col-md-6">
                         <div class="cart-tax">
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gray">Estimate Shipping And Tax</h4>
@@ -138,7 +139,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4 col-md-6">
                         <div class="discount-code-wrapper">
                             <div class="title-wrap">
@@ -159,13 +160,13 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                                 <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                             </div>
                             <h5>Total products <span id="cart_total"></span></h5>
-                            <div class="total-shipping">
+                            <!-- <div class="total-shipping">
                                 <h5>Total shipping</h5>
                                 <ul>
                                     <li><input type="checkbox"> Standard <span>$20.00</span></li>
                                     <li><input type="checkbox"> Express <span>$30.00</span></li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <h4 class="grand-totall-title">Grand Total <span id="grand_total"></span></h4>
                             <a href="#">Proceed to Checkout</a>
                         </div>
@@ -215,22 +216,18 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 <script>
     $(document).ready(function () {
         
-        $(document).on('click', function () {
-            var productId = $(this).closest('tr').data('product-id');
+        $('.incQty').on('click', function () {
+        
+          
+            var productId = $(this).closest('div.cart-plus-minus').data('product-id');
+            
             plusCartQuantity(productId);
         });
 
        
-        $(document).on('click', function () {
-            var productId = $(this).closest('tr').data('product-id');
+        $('.decQty').on('click', function () {
+            var productId = $(this).closest('div.cart-plus-minus').data('product-id');
             minusCartQuantity(productId);
-        });
-
-        
-        $(document).on('change', '.cart-plus-minus-box', function () {
-            var productId = $(this).closest('tr').data('product-id');
-            var newQuantity = parseInt($(this).val()) || 0;
-            updateCartQuantity(productId, newQuantity);
         });
 
         // Initial calculation
@@ -240,30 +237,36 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
     function minusCartQuantity(id) {
         var quantityInput = $('#quantity_cart_product_' + id);
         var quantity = parseInt(quantityInput.val());
-        if (quantity > 1) {
+        if (quantity >= 1) {
             var price = parseFloat($('#cart_product_price_' + id).text());
             quantity = quantity - 1;
             quantityInput.val(quantity);
             updateSubtotal(id, quantity, price);
             updateCatTotal();
+            updateCartQuantity(id, quantity);
+
+            updateDatabase(id, quantity);
         }
     }
 
     function plusCartQuantity(id) {
         var quantityInput = $('#quantity_cart_product_' + id);
         var quantity = parseInt(quantityInput.val());
-        var price = parseFloat($('#cart_product_price_' + id).text());
-        quantity = quantity + 1;
-        quantityInput.val(quantity);
-        updateSubtotal(id, quantity, price);
-        updateCatTotal();
+        if (quantity >= 1) {
+            var price = parseFloat($('#cart_product_price_' + id).text());
+            quantity = quantity + 1;
+            quantityInput.val(quantity);
+            updateSubtotal(id, quantity, price);
+            updateCatTotal();
+            updateDatabase(id, quantity);
+            updateCartQuantity(id, quantity);
+        }
     }
 
     function updateCartQuantity(id, newQuantity) {
         var price = parseFloat($('#cart_product_price_' + id).text());
         $('#quantity_cart_product_' + id).val(newQuantity);
         updateSubtotal(id, newQuantity, price);
-        updateCatTotal();
     }
 
     function updateSubtotal(id, quantity, price) {
@@ -272,17 +275,41 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function updateCatTotal() {
-        var totalSubTotal = 0;
-        <?php foreach ($fetchService as $row) : ?>
-            var quantity = parseInt($('#quantity_cart_product_<?= $row['id']; ?>').val());
-            var price = parseFloat($('#cart_product_price_<?= $row['id']; ?>').text());
-            var subTotal = quantity * price;
-            totalSubTotal += subTotal;
-        <?php endforeach; ?>
-        $('#cart_total').text(totalSubTotal.toFixed(2));
-        
-        var shippingTotal = 0; 
-        var grandTotal = totalSubTotal + shippingTotal;
-        $('#grand_total').text(grandTotal.toFixed(2));
-    }
+            var totalSubTotal = 0;
+            <?php foreach ($fetchService as $row) : ?>
+                var quantity = parseInt($('#quantity_cart_product_<?= $row['id']; ?>').val());
+                var price = parseFloat($('#cart_product_price_<?= $row['id']; ?>').text());
+                var subTotal = quantity * price;
+                totalSubTotal += subTotal;
+                updateSubtotal(<?= $row['id']; ?>, quantity, price);
+            <?php endforeach; ?>
+            $('#cart_total').text(totalSubTotal.toFixed(2));
+
+            var shippingTotal = 0;
+            var grandTotal = totalSubTotal + shippingTotal;
+            $('#grand_total').text(grandTotal.toFixed(2));
+        }
+    
+        function updateDatabase(id, quantity) {
+            $.ajax({
+                type: 'POST',
+                url: 'updateCart.php', 
+                data: {
+                    productId: id,
+                    quantity: quantity
+                },
+                success: function (response) {
+                   
+                    console.log(response);
+                },
+                error: function (error) {
+                    
+                    console.error(error);
+                }
+            });
+        }
+
+      
+        updateCatTotal();
+    
 </script>
