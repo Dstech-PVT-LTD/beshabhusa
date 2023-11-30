@@ -195,7 +195,32 @@
 <script src="assets/js/plugins/ajax-mail.js"></script>
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
+<script>
+   $(document).ready(function() {
+    $('.delete-btn').on('click', function(e) {
+        e.preventDefault();
+        var productId = $(this).data('product-id');
+        
+        console.log('Product ID to delete:', productId);
+        
+        $.ajax({
+            type: 'POST',
+            url: './includes/delete_from_cart.php',
+            data: { product_id: productId },
+            success: function(response) {
+                console.log('AJAX Success:', response);
+            },
+            error: function(error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+    });
+});
 
+</script>
 
 </body>
+
+
+
 </html>

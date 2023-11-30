@@ -1,7 +1,7 @@
 <?php
 include "includes/config.php";
 session_start();
-
+$id = $_SESSION['id'];
 $fetchCategoryStmt = $conn->prepare("SELECT * FROM `categories` ORDER BY `id` DESC");
 
 $fetchCategoryStmt->execute([]);

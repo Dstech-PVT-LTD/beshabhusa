@@ -1,5 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/beshabhusa/public_html/
+    - export DEPLOYPATH=/home1/beshabhusa/public_html/
+    - echo "Copying files from /* to $DEPLOYPATH"
     - /bin/cp -R * $DEPLOYPATH
+    - echo "Deployment Completed"

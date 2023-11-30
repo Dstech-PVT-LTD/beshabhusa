@@ -1,5 +1,10 @@
 <?php include "./includes/header.php"; ?>
+<?php
+$selectProduct = $conn->prepare("SELECT * FROM `products` LIMIT 8"); 
+$selectProduct->execute();
+$listProducts = $selectProduct->fetchAll(PDO::FETCH_ASSOC);
 
+?>
         <div class="slider-area">
             <div class="hero-slider-active-1 nav-style-1 dot-style-2 dot-style-2-position-2 dot-style-2-active-black">
                 <div class="single-hero-slider single-animation-wrap slider-height-2 custom-d-flex custom-align-item-center bg-img hm2-slider-bg res-white-overly-xs" style="background-image:url(assets/images/slider/hm-4-slider-1.jpg);">
@@ -58,11 +63,14 @@
                 <div class="tab-content jump">
                     <div id="product-1" class="tab-pane active">
                         <div class="row">
+                            <?php  foreach($listProducts as $listProduct) {
+                                $id = base64_encode($listProduct['id']);
+                                ?>
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                                 <div class="single-product-wrap mb-35">
                                     <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-13.jpg" alt="">
+                                        <a href="product-details.php?id=<?php echo $id ?>">
+                                            <img src="../<?php echo $listProduct['image'] ; ?>" alt="" style="max-height:850px ;">
                                         </a>
                                         <div class="product-action-2 tooltip-style-2">
                                             <button title="Wishlist"><i class="icon-heart"></i></button>
@@ -81,9 +89,9 @@
                                             </div>
                                             <span>(2)</span>
                                         </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
+                                        <h3><a href="product-details.php"><?php echo $listProduct['name'] ; ?></a></h3>
                                         <div class="product-price-2">
-                                            <span>$20.50</span>
+                                            <span> &#x20B9;<?php echo $listProduct['price'] ; ?></span>
                                         </div>
                                     </div>
                                     <div class="product-content-wrap-2 product-content-position text-center">
@@ -97,9 +105,9 @@
                                             </div>
                                             <span>(2)</span>
                                         </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
+                                        <h3><a href="product-details.php"><?php echo $listProduct['name'] ; ?></a></h3>
                                         <div class="product-price-2">
-                                            <span>$20.50</span>
+                                            <span>&#x20B9;<?php echo $listProduct['price'] ; ?></span>
                                         </div>
                                         <div class="pro-add-to-cart">
                                             <button title="Add to Cart">Add To Cart</button>
@@ -107,357 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-14.jpg" alt="">
-                                        </a>
-                                        <span class="pro-badge left bg-red">-20%</span>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span class="new-price">$35.45</span>
-                                            <span class="old-price">$45.80</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span class="new-price">$35.45</span>
-                                            <span class="old-price">$45.80</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-15.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$35.45</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$35.45</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-16.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$45.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$45.50</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-17.jpg" alt="">
-                                        </a>
-                                        <span class="pro-badge left bg-red">-20%</span>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                            </div>
-                                            <span>(3)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span class="new-price">$35.45</span>
-                                            <span class="old-price">$45.80</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                            </div>
-                                            <span>(3)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span class="new-price">$35.45</span>
-                                            <span class="old-price">$45.80</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-18.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$55.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$55.50</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-19.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$65.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$65.50</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="single-product-wrap mb-35">
-                                    <div class="product-img product-img-zoom mb-15">
-                                        <a href="product-details.php">
-                                            <img src="assets/images/product/product-20.jpg" alt="">
-                                        </a>
-                                        <div class="product-action-2 tooltip-style-2">
-                                            <button title="Wishlist"><i class="icon-heart"></i></button>
-                                            <button title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="icon-size-fullscreen icons"></i></button>
-                                            <button title="Compare"><i class="icon-refresh"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$75.50</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap-2 product-content-position text-center">
-                                        <div class="product-rating-wrap">
-                                            <div class="product-rating">
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star"></i>
-                                                <i class="icon_star gray"></i>
-                                            </div>
-                                            <span>(2)</span>
-                                        </div>
-                                        <h3><a href="product-details.php">Make Thing Happen T-Shirt</a></h3>
-                                        <div class="product-price-2">
-                                            <span>$75.50</span>
-                                        </div>
-                                        <div class="pro-add-to-cart">
-                                            <button title="Add to Cart">Add To Cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <?php } ?>            
                     <div id="product-2" class="tab-pane">
                         <div class="row">
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">

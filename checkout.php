@@ -267,6 +267,320 @@ print_r($_SESSION);
         <!-- <div class="row">
             <div class="col-md-6">
 
+<<<<<<< HEAD
+    <!-- page title -->
+    <section class="page-title-inner" data-bg-img='assets/img/page-titlebg.png'>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- page title inner -->
+                    <div class="page-title-wrap">
+                        <div class="page-title-heading"><h1 class="h2">CheckOut<span>Payment</span></h1></div>
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="index.html">home</a></li>
+                            <li><a href="#">Shop</a></li>
+                            <li class="active"><a href="#">Check Out</a></li>
+                        </ul>
+                    </div>
+                    <!-- End of page title inner -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of page title -->
+    
+    <!-- check out wrap -->
+    <section class="pt-100 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- checkout register wrap -->
+                    <div class="checkout-register-wrap">
+                        <div class="checkout-register">
+                            <form action="#" method="POST">
+                                <div class="checkout-register-title">
+                                    <h5><a  data-toggle="collapse" href="#register" aria-expanded="false">Are You Returning Customer? <span> Click Here to Login</span> </a></h5>
+                                </div>
+                                <div class="checkout-register-input input-btn-style collapse show" id="register">
+                                    <input type="email" class="theme-input-style" placeholder="Enter Your Email"  required>
+                                    <input type="password" class="theme-input-style" placeholder="Enter Your Password"  required>
+                                    <div class="form-btn-field">
+                                        <button type="submit" class="btn">Log in</button>
+                                        <label class="m-0"><input type="checkbox">Remember Me?</label>
+                                        <a href="#">Forgot Your Password?</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--End of checkout register wrap -->
+                </div>
+
+                <div class="col-md-6">
+                    <!-- coupon register wrap -->
+                    <div class="coupon-register-wrap">
+                        <div class="coupon-register">
+                            <form action="#" method="POST">
+                                <div class="coupon-register-title"  >
+                                    <h5> <a data-toggle="collapse" href="#coupon" aria-expanded="false">Have A Coupon? <span>Click here to enter your code</span></a></h5>
+                                </div>
+                                <div class="checkout-register-input input-btn-style collapse show" id="coupon">
+                                    <input type="number" class="theme-input-style" placeholder='Coupon Code' name="coupon" required>
+                                    <button type="submit" class="btn">Apply Coupon</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--End of coupon register wrap -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- billing details wrap -->
+                    <div class="billing-details-wrap">
+                        <form id="checkoutForm">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+                                    <!-- billing details form-->
+                                    <div class="billing-details">
+                                        <div class="billing-heading">
+                                            <h3>Billing Details</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- first name -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="First Name" name="first_name" required>
+                                                </span>
+                                                <!--End of first name -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- last name -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="Last Name" name="last_name" required>
+                                                </span>
+                                                <!--End of last name -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <!-- Phone No -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="number" class="theme-input-style" placeholder="Phone No" name="phone" required>
+                                                </span>
+                                                <!-- End of Phone No -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <!-- Email Address -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="email" class="theme-input-style" placeholder="Email Address" name="email"required>
+                                                </span>
+                                                <!-- End of Email Address -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- Country -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="Country" name="country"required>
+                                                </span>
+                                                <!-- End of Country -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Town / City -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="Town / City" name="city">
+                                                </span>
+                                                <!-- End of Town / City -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <!-- Street Address -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="Street Address" name="street_address">
+                                                    <input type="text" class="theme-input-style" placeholder="Street Address(optional)"name="street_addressop">
+                                                </span>
+                                                <!-- End of Street Address -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- District -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="District" name="dist">
+                                                </span> 
+                                                <!-- End of District -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Postcode / ZIP -->
+                                                <span class="woocommerce-input-wrapper">
+                                                    <input type="text" class="theme-input-style" placeholder="Postcode / ZIP" name="pin_code">
+                                                </span>
+                                                <!-- End of Postcode / ZIP -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- Creat an Account -->
+                                                <div class="shop--create-account">
+                                                    <label data-toggle="collapse" data-target="#collapse-3" class="collapsed">
+                                                        <input type="checkbox">
+                                                         Creat an Account?
+                                                    </label>
+                                                </div>
+                                                <div class="shop--create-singin collapse" id="collapse-3">
+                                                    <label>Create a Password <span>*</span></label>
+                                                    <input type="password" class="theme-input-style" placeholder="Password" >
+                                                </div>
+                                                <!--End of Creat an Account -->
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <!-- Ship To A Different Address -->
+                                                <div class="shop--create-account">
+                                                    <label data-toggle="collapse" data-target="#collapse-4" >
+                                                   <input type="checkbox">
+                                                       Ship To A Different Address?
+                                                    </label>
+                                                    <div class="shop--create-singin collapse" id="collapse-4">
+                                                        <input type="text" class="theme-input-style mb-30" placeholder="stree Address">
+                                                        <input type="text" class="theme-input-style" placeholder="appertment,suit,flate,(Optional)">
+                                                    </div>
+                                                </div>
+                                                <!--End of Ship To A Different Address -->
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <!-- order note -->
+                                                <label class="billing-textarea">
+                                                    Order Note
+                                                </label>
+                                                <textarea  id="taxtarea" placeholder="Notes about your order. e.g. special notes for delivery."></textarea>
+                                                <!--End of order note -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of billing details form-->
+                                </div>
+                                <div class="col-lg-6">
+                                    <!-- your order -->
+                                    <div class="checkout-review-order-wrap">
+                                        <!-- checkout-review-order -->
+                                        <div class="woocommerce-checkout-review-order">
+                                            <div class="review-order-header">
+                                                <h3>Your order</h3>
+                                            </div>
+                                            <table class="review-order-table">
+                                                <tbody>
+                                                <tr>
+                                                        <th>Product name</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                <?php
+                                             $userId = $_SESSION['id'];
+                                    
+                                                $sql = "SELECT * FROM `add_to_carts` WHERE `user_id` = ?";
+                    $select = $conn->prepare($sql);
+                    $select->execute([$userId]);
+                    $carts = $select->fetchAll(PDO::FETCH_ASSOC);
+                    $totalAmount = 0;
+                    foreach ($carts as $cart) {
+                        $product = $conn->prepare("SELECT * FROM `products` WHERE `id` = ?");
+                        $product->execute([$cart["product_id"]]);
+                        $product = $product->fetch(PDO::FETCH_ASSOC);
+                        $total = $product['price'] * $cart['quantity'];
+                        $totalAmount += $total;
+                        echo "<tr>
+                                <td>{$product['name']} <span>{$cart['quantity']} X {$product['price']}</span></td>
+                               <td>Rs.{$total}</td>
+                              </tr>";
+                    }
+                                                
+                                                ?>
+                                                   
+                                                    
+                                                    <tr>
+                                                        <td>Sub Total</td>
+                                                        <td>Rs.<?php echo $totalAmount ?></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- checkout-review-order -->
+
+                                        <!-- check Shipping warp -->
+                                        <div class="check-shipping-wrap">
+                                            <div class="check-shipping-heading">
+                                                <h5>Shipping</h5>
+                                            </div>
+                                            <table class="check-shipping-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><label><input class="" type="radio" >
+                                                        Free shipping</label></td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                       <td><label><input class="" type="radio" checked >
+                                                        Flat rate: $10.00</label></td>
+                                                        <td>$10</td> 
+                                                    </tr>
+                                                    <tr>
+                                                       <td><label><input class="" type="radio" >
+                                                        Local pickup: $5.00</label></td>
+                                                        <td>&nbsp;</td> 
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total</td>
+                                                        <td>$325</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- End of check Shipping warp -->
+
+                                        <!-- payment system -->
+                                        <div class="payment-system-wrap">
+                                            <div class="payment-system-heading">
+                                                <h5>Payment System</h5>
+                                            </div>
+                                            <table class="payment-system-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><label><input type="radio"  data-parsley-multiple="payment-type">Direct Bank Transfer</label></td>
+                                                        <td><label><input class="" type="radio" name="payment_system" value="Check payments" data-parsley-multiple="payment-type">Check payments</label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label><input class="" type="radio" name="payment_system" value="Cash on delivery"  data-parsley-multiple="payment-type" checked>Cash on delivery</label></td>
+                                                        <td><label><input type="radio" name="payment_system" value="PayPal"  data-parsley-multiple="payment-type">PayPal</label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label><input class="" type="radio" name="payment_system" value="Credit Card" data-parsley-multiple="payment-type">Credit Card (Stripe)</label></td>
+                                                        <td><label><input type="radio" name="payment_system" value="Alipay" data-parsley-multiple="payment-type">Alipay</label></td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!--End of payment system -->
+                                    </div>
+                                    <!--End of your order -->
+                                </div>
+                                <div class="col-md-7">
+                                    <!-- woocommerce-terms-and-conditions-wrapper -->
+                                    <div class="terms-and-conditions-wrapper text-center">
+                                        <p>Your personal data will be used to process your order,  support your<br> experience throughout this website, and for other purposes described in our <a href="#">privacy policy</a>.</p>
+                                        <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+                                            <input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox">
+                                            <span>I agree to the <a href="#">terms and conditions</a></span>
+                                        </label>
+                                        <button type="submit" class="billing-submit-button btn btn-fill-type">Place Order</button>
+                                    </div>
+                                    <!-- End of woocommerce-terms-and-conditions-wrapper -->
+=======
                 <div class="checkout-register-wrap">
                     <div class="checkout-register">
                         <form action="#" method="POST">
@@ -282,6 +596,7 @@ print_r($_SESSION);
                                     <button type="submit" class="btn">Log in</button>
                                     <label class="m-0"><input type="checkbox">Remember Me?</label>
                                     <a href="#">Forgot Your Password?</a>
+>>>>>>> 59ac74438a989725d55784875f21e3cbcf4d6e43
                                 </div>
                             </div>
                         </form>

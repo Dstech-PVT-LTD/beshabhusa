@@ -1,8 +1,7 @@
 <?php include "./includes/header.php"; ?>
 <?php
-// session_start();
-// $userId = $_SESSION['id'];
-$userId = 4;
+session_start();
+$userId = $_SESSION['id'];
 $sql = "SELECT * FROM `address` WHERE `user_id` = ?";
 $select = $conn->prepare($sql);
 $select->execute([$userId]);
@@ -78,6 +77,7 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="checkout-wrap pt-30">
         <form id="checkoutForm">
+        
             <div class="row">
                 
                 <div class="col-lg-7">
@@ -206,7 +206,7 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="billing-info mb-20">
                                         <label>Street Address</label>
                                         <input class="billing-address" placeholder="House number and street name"
-                                            type="text">
+                                            type="text" >
                                         <input placeholder="Apartment, suite, unit etc." type="text">
                                     </div>
                                 </div>
@@ -281,6 +281,7 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
                                                 foreach ($carts as $cart) {
                                                     $product = $conn->prepare("SELECT * FROM `products` WHERE `id` = ?");
                                                     $product->execute([$cart["product_id"]]);
+
                                                     $product = $product->fetch(PDO::FETCH_ASSOC);
                                                     $total = $product['price'] * $cart['quantity'];
                                                     $totalAmount += $total;
@@ -291,11 +292,16 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
                                                 }
 
                                                 ?>
-
+<input type="hidden" name="product_id" value="<?php echo $cart["product_id"]; ?>">
+      
+        <input type="hidden" name="quantity" value="<?php echo $cart["quantity"]; ?>">
+        <input type="hidden" name="price" value="<?php echo $cart["totalAmount"]; ?>">
+       
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="your-order-info order-subtotal">
+                                    
                                         <ul>
                                             <li>Subtotal <span>Rs.
                                                     <?php echo $totalAmount ?>
@@ -416,7 +422,7 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
 
             // Create FormData object
             var formData = new FormData(document.getElementById("checkoutForm"));
-
+           
             // Send an Ajax request
             $.ajax({
                 type: "POST",

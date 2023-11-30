@@ -155,7 +155,7 @@ $fetchProductStmt->execute([$id]);
                                     <span class="list-heading">quantity:</span>
                                     <div class="product-quantity">
                                         <span class="minus"><img src="assets/img/icons/minus.svg" class="svg" alt=""></span>
-                                        <input id="quantity1" type="text" value="0" class="product-quantity-list product-size">
+                                        <input id="quantity1" type="text" value="1" class="product-quantity-list product-size">
                                         <span class="plus"><img src="assets/img/icons/plus.svg" class="svg" alt=""></span>
                                     </div>
                                 </li>
@@ -504,7 +504,7 @@ $fetchProductStmt->execute([$id]);
 
     </div>
 </section>
-<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
 
@@ -558,41 +558,41 @@ $fetchProductStmt->execute([$id]);
 
         </div>
     </div>
-</div> -->
+</div>
 <!-- End of product details wrapper -->
 
 <?php include "includes/footer.php"; ?>
 <script>
     $(document).ready(function() {
-    //     $('#loginform').submit(function(event) {
-    //         event.preventDefault();
-    //         var email = $('input[name="email"]').val();
-    //         var password = $('input[name="password"]').val();
+        $('#loginform').submit(function(event) {
+            event.preventDefault();
+            var email = $('input[name="email"]').val();
+            var password = $('input[name="password"]').val();
 
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "loginApi.php",
-    //             data: {
-    //                 email: email,
-    //                 password: password
-    //             },
-    //             dataType: 'JSON',
-    //             success: function(response) {
-    //                 if (response.success) {
-    //                     var userId = response.userId;
-    //                     addToCart(userId);
-    //                     window.location.href = response.redirect;
+            $.ajax({
+                type: "POST",
+                url: "loginApi.php",
+                data: {
+                    email: email,
+                    password: password
+                },
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.success) {
+                        var userId = response.userId;
+                        addToCart(userId);
+                        window.location.href = response.redirect;
                        
-    //                 } else {
-    //                     alert('Login failed. Please check your credentials.');
-    //                 }
-    //             },
-    //             error: function(error) {
-    //                 console.log(error);
-    //                 alert('An error occurred while logging in.');
-    //             }
-    //         });
-    //     });
+                    } else {
+                        alert('Login failed. Please check your credentials.');
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('An error occurred while logging in.');
+                }
+            });
+        });
 
         function addToCart(userId) {
             var size = $('input[name="equll_size"]:checked').val();

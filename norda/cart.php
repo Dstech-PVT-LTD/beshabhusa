@@ -1,8 +1,8 @@
 <?php include "./includes/header.php"; ?>
 <?php
-// session_start();
-// $user_id = $_SESSION['id'];
-$user_id = 4;
+session_start();
+$user_id = $_SESSION['id'];
+
 $fetchServiceStmt = $conn->prepare("SELECT * FROM `add_to_carts` WHERE `user_id`= ?");
 
 $fetchServiceStmt->execute([$user_id]);
