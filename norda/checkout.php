@@ -77,35 +77,38 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
         <div class="checkout-wrap pt-30">
+        <form id="checkoutForm">
             <div class="row">
+                
                 <div class="col-lg-7">
                     <div class="billing-info-wrap mr-50">
+
                         <h3>Billing Details</h3>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
                                     <label>First Name <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text" class="theme-input-style" id="edit_first_name"
-                                        name="first_name" required>
-                                    <input type="hidden" name="id" id="edit_id">
+                                    <input type="text" class="theme-input-style" id="edit_first_name" name="first_name"
+                                        required>
+                                    <input type="hidden" name="user_id" value="<?php echo $userId ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
                                     <label>Last Name <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="last_name">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-info mb-20">
                                     <label>Company Name <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="company_name">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-select mb-20">
                                     <label>Country <abbr class="required" title="required">*</abbr></label>
-                                    <select>
+                                    <select name="country">
                                         <option>Select a country</option>
                                         <option>Azerbaijan</option>
                                         <option>Bahamas</option>
@@ -120,37 +123,37 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
                                     <label>Street Address <abbr class="required" title="required">*</abbr></label>
                                     <input class="billing-address" placeholder="House number and street name"
                                         type="text">
-                                    <input placeholder="Apartment, suite, unit etc." type="text">
+                                    <input placeholder="Apartment, suite, unit etc." type="text" name="street_address">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-info mb-20">
                                     <label>Town / City <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="town">
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="billing-info mb-20">
                                     <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="state">
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="billing-info mb-20">
                                     <label>Postcode / ZIP <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="pin_code">
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="billing-info mb-20">
                                     <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="phone">
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="billing-info mb-20">
                                     <label>Email Address <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text">
+                                    <input type="text" name="email">
                                 </div>
                             </div>
                         </div>
@@ -247,83 +250,124 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <div class="your-order-area">
-                        <h3>Your order</h3>
-                        <div class="your-order-wrap gray-bg-4">
-                            <div class="your-order-info-wrap">
-                                <div class="your-order-info">
-                                    <ul>
-                                        <li>Product <span>Total</span></li>
-                                    </ul>
-                                </div>
-                                <div class="your-order-middle">
+                    
+                        <div class="your-order-area">
+                            <h3>Your order</h3>
+                            <div class="your-order-wrap gray-bg-4">
+                                <div class="your-order-info-wrap">
+                                    <div class="your-order-info">
+                                        <ul>
+                                            <li>Product <span>Total</span></li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- <div class="your-order-middle">
                                     <ul>
                                         <li>Product Name X 1 <span>$329 </span></li>
                                         <li>Product Name X 1 <span>$329 </span></li>
                                     </ul>
+                                </div> -->
+                                    <div class="your-order-middle">
+                                        <ul>
+                                            <li style="list-style:none;">
+
+                                                <?php
+
+                                                $sql = "SELECT * FROM `add_to_carts` WHERE `user_id` = ?";
+                                                $select = $conn->prepare($sql);
+                                                $select->execute([$userId]);
+                                                $carts = $select->fetchAll(PDO::FETCH_ASSOC);
+                                                $totalAmount = 0;
+                                                foreach ($carts as $cart) {
+                                                    $product = $conn->prepare("SELECT * FROM `products` WHERE `id` = ?");
+                                                    $product->execute([$cart["product_id"]]);
+                                                    $product = $product->fetch(PDO::FETCH_ASSOC);
+                                                    $total = $product['price'] * $cart['quantity'];
+                                                    $totalAmount += $total;
+                                                    echo "<ul>
+    <li>{$product['name']} X {$cart['quantity']} <span>Rs. {$total}</span></li>
+  </ul>";
+
+                                                }
+
+                                                ?>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="your-order-info order-subtotal">
+                                        <ul>
+                                            <li>Subtotal <span>Rs.
+                                                    <?php echo $totalAmount ?>
+                                                </span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="your-order-info order-shipping">
+                                        <ul>
+                                            <li>Shipping <p>Enter your full address </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="your-order-info order-total">
+                                        <ul>
+                                            <li>Total <span>Rs.
+                                                    <?php echo $totalAmount ?>
+                                                </span></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="your-order-info order-subtotal">
-                                    <ul>
-                                        <li>Subtotal <span>$329 </span></li>
-                                    </ul>
-                                </div>
-                                <div class="your-order-info order-shipping">
-                                    <ul>
-                                        <li>Shipping <p>Enter your full address </p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="your-order-info order-total">
-                                    <ul>
-                                        <li>Total <span>$273.00 </span></li>
-                                    </ul>
+                                <div class="payment-method">
+                                    <div class="pay-top sin-payment">
+                                        <input id="payment_method_1" class="input-radio" type="radio" value="DBT"
+                                            name="payment_system">
+                                        <label for="payment_method_1"> Direct Bank Transfer </label>
+                                        <div class="payment-box payment_method_bacs">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference.</p>
+                                        </div>
+                                    </div>
+                                    <div class="pay-top sin-payment">
+                                        <input id="payment-method-2" class="input-radio" type="radio"
+                                            value="Check payments" name="payment_system">
+                                        <label for="payment-method-2">Check payments</label>
+                                        <div class="payment-box payment_method_bacs">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference.</p>
+                                        </div>
+                                    </div>
+                                    <div class="pay-top sin-payment">
+                                        <input id="payment-method-3" class="input-radio" type="radio"
+                                            value="Cash on delivery" checked="checked" name="payment_system">
+                                        <label for="payment-method-3">Cash on delivery </label>
+                                        <div class="payment-box payment_method_bacs">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference.</p>
+                                        </div>
+                                    </div>
+                                    <div class="pay-top sin-payment sin-payment-3">
+                                        <input id="payment-method-4" class="input-radio" type="radio" value="PayPal"
+                                            name="payment_system">
+                                        <label for="payment-method-4">PayPal <img alt=""
+                                                src="assets/images/icon-img/payment.png"><a href="#">What is
+                                                PayPal?</a></label>
+                                        <div class="payment-box payment_method_bacs">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="payment-method">
-                                <div class="pay-top sin-payment">
-                                    <input id="payment_method_1" class="input-radio" type="radio" value="cheque"
-                                        checked="checked" name="payment_method">
-                                    <label for="payment_method_1"> Direct Bank Transfer </label>
-                                    <div class="payment-box payment_method_bacs">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference.</p>
-                                    </div>
-                                </div>
-                                <div class="pay-top sin-payment">
-                                    <input id="payment-method-2" class="input-radio" type="radio" value="cheque"
-                                        name="payment_method">
-                                    <label for="payment-method-2">Check payments</label>
-                                    <div class="payment-box payment_method_bacs">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference.</p>
-                                    </div>
-                                </div>
-                                <div class="pay-top sin-payment">
-                                    <input id="payment-method-3" class="input-radio" type="radio" value="cheque"
-                                        name="payment_method">
-                                    <label for="payment-method-3">Cash on delivery </label>
-                                    <div class="payment-box payment_method_bacs">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference.</p>
-                                    </div>
-                                </div>
-                                <div class="pay-top sin-payment sin-payment-3">
-                                    <input id="payment-method-4" class="input-radio" type="radio" value="cheque"
-                                        name="payment_method">
-                                    <label for="payment-method-4">PayPal <img alt=""
-                                            src="assets/images/icon-img/payment.png"><a href="#">What is
-                                            PayPal?</a></label>
-                                    <div class="payment-box payment_method_bacs">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference.</p>
-                                    </div>
-                                </div>
+                            <div class="Place-order">
+                            <a id="placeOrderBtn" href="#">Place Order</a>
+                                </a>
+
                             </div>
                         </div>
-                        <div class="Place-order">
-                            <a href="#">Place Order</a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -363,3 +407,32 @@ $carts = $select->fetchAll(PDO::FETCH_ASSOC);
 
 
 <?php include "./includes/footer.php"; ?>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Attach a click event to the "Place Order" button
+        $("#placeOrderBtn").click(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Create FormData object
+            var formData = new FormData(document.getElementById("checkoutForm"));
+
+            // Send an Ajax request
+            $.ajax({
+                type: "POST",
+                url: "process_orderApi.php", // Replace with the actual path to your PHP script
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Display the success message or handle the response accordingly
+                    alert(response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors here
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>

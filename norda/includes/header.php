@@ -364,9 +364,10 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                 <a class="cart-close" href="#"><i class="icon_close"></i></a>
                 <div class="cart-content">
                     <h3>Shopping Cart</h3>
-                    <?php foreach ($fetchService as $row) {
+                    <?php 
+                    $totalSubTotal = 0;
+                    foreach ($fetchService as $row) {
                     $fetchProductStmt = $conn->prepare("SELECT * FROM `products` WHERE `id`= ?");
-
                     $fetchProductStmt->execute([$row['product_id']]);
                     $fetchProduct = $fetchProductStmt->fetch(PDO::FETCH_ASSOC);
                     $price = $fetchProduct['price'];
@@ -382,7 +383,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <div class="cart-title">
                                 <h4><a href="#"><?php echo $fetchProduct['name']; ?></a></h4>
-                                <span><?php echo $quantity = $row['quantity']; ?> × <?php echo $price = $fetchProduct['price']; ?>	</span>
+                                <span><?php echo $quantity; ?> × <?php echo $price; ?> </span>
                             </div>
                             <div class="cart-delete">
                                 <a href="#">×</a>
@@ -392,7 +393,7 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
                     </ul>
                     <?php } ?>
                     <div class="cart-total">
-                        <h4>Subtotal: <span><?php echo $subtotal = $price * $quantity; ?></span></h4>
+                        <h4>Subtotal: <span><?php echo $totalSubTotal; ?></span></h4>
                     </div>
                     <div class="cart-checkout-btn">
                         <a class="btn-hover cart-btn-style" href="cart.php">view cart</a>
