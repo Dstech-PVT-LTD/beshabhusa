@@ -15,4 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['quantity'] != '') {
         echo json_encode(['status' => 'error', 'message' => 'Failed to update product quantity']);
     }
 }
+
+
+if (isset($_POST['product_id'])) {
+   
+    $productId = $_POST['product_id'];
+
+    
+    $deleteStmt = $conn->prepare('DELETE FROM `add_to_carts` WHERE `id` = ?');
+    $result = $deleteStmt->execute([$productId]);
+
+    
+    if ($result) {
+        
+        echo json_encode(['status' => 'success', 'message' => 'Product deleted successfully']);
+    } else {
+        
+        echo json_encode(['status' => 'error', 'message' => 'Failed to remove product']);
+    }
+} else {
+    
+    echo json_encode(['status' => 'error', 'message' => 'Product ID not provided']);
+}
 ?>
+

@@ -232,6 +232,16 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Initial calculation
         updateCatTotal();
+        $('.product-remove a').on('click', function (event) {
+            event.preventDefault();
+
+            // Get the product ID from the parent <tr> element
+            var productId = $(this).closest('tr').data('product-id');
+
+            // Call the function to remove the product
+            removeCartItem(productId);
+        });
+
     });
 
     function minusCartQuantity(id) {
@@ -311,5 +321,27 @@ $fetchService = $fetchServiceStmt->fetchAll(PDO::FETCH_ASSOC);
 
       
         updateCatTotal();
+        function removeCartItem(id) {
+            $.ajax({
+                type: 'POST',
+                url: 'updateCart.php', 
+                data: {
+                    product_id: id
+                },
+                success: function (response) {
+                    
+                    $('tr[data-product-id="' + id + '"]').remove();
+
+                   
+                    updateCatTotal();
+
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+    
     
 </script>
